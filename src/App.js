@@ -25,7 +25,7 @@ function App() {
                 <Route path="/wishlist" component={WishListPage} />
                 <Route path="/profile" component={UserProfilePage} />
                 <Route path="/search" component={SearchPage} />
-                <Route path="/productDetails/:productName/:id" component={ProductDetails} />
+                <Route path="/productDetails/:type/:category/:productName/:id" component={ProductDetails} />
               </Switch>
               <Header />
             </BrowserRouter>

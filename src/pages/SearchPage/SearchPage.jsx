@@ -2,6 +2,57 @@ import React, { useState } from "react";
 
 const SearchPage = (props) => {
   const { handleClose } = props;
+  const [userDetails, setUserDetails] = useState({
+    emailAddress: "",
+    firstName: "",
+    lastName: "",
+    password: "",
+    confirmPassword: "",
+    dateOfBirth: {
+      date: "",
+      month: "",
+      year: "",
+    },
+    mostlyInterestedIn: "",
+  });
+
+  const handleChange = (e) => {
+    setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
+  };
+
+  const generateYearOptions = () => {
+    const arr = [];
+
+    const startYear = 1900;
+    const endYear = 2005;
+
+    for (let i = endYear; i >= startYear; i--) {
+      arr.push(<option value={i}>{i}</option>);
+    }
+
+    return arr;
+  };
+
+  const generateMonthOptions = () => {
+    let array = [];
+    let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    for (let i = 0; i < monthNames.length; i++) {
+      array.push(<option value={monthNames[i]}>{monthNames[i]}</option>);
+    }
+    return array;
+  };
+
+  const generateDateOptions = () => {
+    let array = [];
+
+    for (let i = 1; i <= 31; i++) {
+      array.push(<option value={i}>{i}</option>);
+    }
+    return array;
+  };
+
+  console.log("xoxo", userDetails);
+
   const [value, setValue] = useState(1);
   return (
     <div>
@@ -66,54 +117,95 @@ const SearchPage = (props) => {
             <form action="">
               <div className="space-y-3">
                 <div>
-                  <label className="uppercase font-semibold text-sm">Email Address:</label>
-                  <input type="text" className="border border-black w-full py-2 px-2 mt-1 outline-none" />
+                  <label className="uppercase font-semiBold text-gray-400 text-sm">Email Address:</label>
+                  <input
+                    name="emailAddress"
+                    value={userDetails.emailAddress}
+                    onChange={handleChange}
+                    type="text"
+                    className="border border-black w-full py-2 px-2 mt-1 outline-none"
+                  />
                   <span className="text-xs text-gray-500">We'll send your order confirmation here</span>
                 </div>
                 <div>
-                  <label className="uppercase font-semibold text-sm">First Name:</label>
-                  <input type="text" className="border border-black w-full py-2 px-2 mt-1 outline-none" />
+                  <label className="uppercase font-semiBold text-gray-400  text-sm">First Name:</label>
+                  <input name="firstName" onChange={handleChange} type="text" className="border border-black w-full py-2 px-2 mt-1 outline-none" />
                 </div>
                 <div>
-                  <label className="uppercase font-semibold text-sm">Last Name:</label>
-                  <input type="text" className="border border-black w-full py-2 px-2 mt-1 outline-none" />
+                  <label className="uppercase font-semiBold text-gray-400  text-sm">Last Name:</label>
+                  <input name="lastName" onChange={handleChange} type="text" className="border border-black w-full py-2 px-2 mt-1 outline-none" />
                 </div>
                 <div>
-                  <label className="uppercase font-semibold text-sm">Password:</label>
-                  <input type="text" className="border border-black w-full py-2 px-2 mt-1 outline-none" />
+                  <label className="uppercase font-semiBold text-gray-400 text-sm">Password:</label>
+                  <input name="password" onChange={handleChange} type="text" className="border border-black w-full py-2 px-2 mt-1 outline-none" />
                   <span className="text-xs text-gray-500">Must be 10 or more characters</span>
                 </div>
                 <div>
-                  <label className="uppercase font-semibold text-sm">Date of Birth:</label>
+                  <label className="uppercase font-semiBold text-gray-400  text-sm">Confirm Password:</label>
+                  <input name="confirmPassword" onChange={handleChange} type="text" className="border border-black w-full py-2 px-2 mt-1 outline-none" />
+                </div>
+                <div>
+                  <label className="uppercase font-semiBold text-gray-400  text-sm">Date of Birth:</label>
                   <div className="flex items-center space-x-2 mt-1">
                     <div className="w-full">
                       <select className="w-full py-2 border border-black bg-white outline-none" name="" id="">
-                        <option value="">DD</option>
+                        <option selected disabled>
+                          DD
+                        </option>
+                        {generateDateOptions()}
                       </select>
                     </div>
                     <div className="w-full">
-                      <select className="w-full py-2 border border-black bg-white outline-none" name="" id="">
-                        <option value="">Month</option>
+                      <select
+                        onChange={(e) => setUserDetails({ ...userDetails.dateOfBirth, dateOfBirth: { month: e.target.value } })}
+                        className="w-full py-2 border border-black bg-white outline-none"
+                        name=""
+                        id=""
+                      >
+                        <option selected disabled>
+                          MM
+                        </option>
+                        {generateMonthOptions()}
                       </select>
                     </div>
                     <div className="w-full">
-                      <select className="w-full py-2 border border-black bg-white outline-none" name="" id="">
-                        <option value="">YYYY</option>
+                      <select
+                        onChange={(e) => setUserDetails({ ...userDetails.dateOfBirth, dateOfBirth: { year: e.target.value } })}
+                        className="w-full py-2 border border-black bg-white outline-none"
+                        name=""
+                        id=""
+                      >
+                        <option selected disabled>
+                          YYYY
+                        </option>
+                        {generateYearOptions()}
                       </select>
                     </div>
                   </div>
                   <span className="text-xs text-gray-500">You need to be 16 or over to use SHOPS</span>
                 </div>
                 <div>
-                  <label className="uppercase font-semibold text-sm">MOSTLY INTERESTED IN:</label>
+                  <label className="uppercase font-semiBold text-gray-400  text-sm">MOSTLY INTERESTED IN:</label>
                   <div className="flex items-center space-x-10 mt-1">
                     <div className="flex items-center space-x-3">
-                      <input className="w-5 h-5" type="radio" />
-                      <span>Womenswear</span>
+                      <input
+                        value="Womenwear"
+                        onChange={(e) => setUserDetails({ ...userDetails, mostlyInterestedIn: e.target.value })}
+                        checked={userDetails.mostlyInterestedIn === "Womenwear"}
+                        className="w-5 h-5"
+                        type="radio"
+                      />
+                      <span onClick={() => setUserDetails({ ...userDetails, mostlyInterestedIn: "Womenwear" })}>Womenswear</span>
                     </div>
                     <div className="flex items-center space-x-3">
-                      <input className="w-5 h-5" type="radio" />
-                      <span>Menswear</span>
+                      <input
+                        value="Menswear"
+                        onChange={(e) => setUserDetails({ ...userDetails, mostlyInterestedIn: e.target.value })}
+                        checked={userDetails.mostlyInterestedIn === "Menswear"}
+                        className="w-5 h-5"
+                        type="radio"
+                      />
+                      <span onClick={() => setUserDetails({ ...userDetails, mostlyInterestedIn: "Menswear" })}>Menswear</span>
                     </div>
                   </div>
                 </div>

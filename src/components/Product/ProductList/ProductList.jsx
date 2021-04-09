@@ -5,6 +5,8 @@ import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Loader from "src/components/Loader/Loader";
 
+import productDummy from "../../../assets/data/products";
+
 const ProductList = () => {
   const [products, setProducts] = useState([]);
 
@@ -19,20 +21,19 @@ const ProductList = () => {
 
   console.log(products);
 
-  if (products.length === 0) {
-    return (
-      <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
-        <Loader />
-        {/* <CircularProgress /> */}
-      </div>
-    );
-  }
+  // if (products.length === 0) {
+  //   return (
+  //     <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
+  //       <Loader />
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="mt-2 xl:mt-4">
       <div className="grid grid-cols-2 gap-3 xl:grid xl:grid-cols-3 xl:gap-4 ">
-        {products.map((product) => (
-          <Link to={`/productDetails/${product.productName}/${product._id}`}>
+        {productDummy.map((product) => (
+          <Link to={`/productDetails/${product.gender}/${product.category}/${product.productName}/${product._id}`}>
             <div className="cursor-pointer">
               <div className="relative">
                 <img
@@ -54,10 +55,12 @@ const ProductList = () => {
                 </div>
               </div>
               <div className="mt-1">
-                <h1 className="font-semibold">{product.productName}</h1>
-                <p className="text-sm text-gray-500">{product.description}</p>
-                <div>
-                  <span className="text-sm font-semibold">Rs. {product.price}</span>
+                <h1 className="font-semiBold text-sm">{product.productName}</h1>
+                <p className="text-sm text-gray-500 break-words overflow-ellipsis">{product.description}</p>
+                <div className="text-sm space-x-1">
+                  <span className="text-sm font-bold">Rs. {Math.floor(product.price - (product.price * product.priceDiscount) / 100)}</span>
+                  <span className="line-through text-gray-500">{product.price}</span>
+                  <span className="text-red-500">{`(${product.priceDiscount}) % OFF`}</span>
                 </div>
               </div>
             </div>

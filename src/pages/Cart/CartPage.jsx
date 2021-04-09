@@ -4,8 +4,8 @@ import CartProductList from "../../pages/Cart/CartProductList/CartProductList";
 
 const CartPage = () => {
   return (
-    <div className="px-2">
-      <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} className="">
+    <div className="px-3">
+      {/* <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} className="">
         <div className="flex flex-col flex-nowrap justify-between text-center">
           <div>
             <svg xmlns="http://www.w3.org/2000/svg" className="w-6 m-auto" viewBox="0 0 512 512">
@@ -33,7 +33,7 @@ const CartPage = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       <CartProductList />
     </div>
   );

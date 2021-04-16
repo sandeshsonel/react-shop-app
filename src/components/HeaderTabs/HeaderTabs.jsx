@@ -3,9 +3,12 @@ import React from "react";
 const HeaderTabs = () => {
   const [value, setValue] = React.useState(1);
   return (
-    <div className="border-b xl:border-none">
-      <div className="px-2">
-        <ul style={{ scrollbarWidth: "4px" }} className="py-2 flex items-center space-x-3 xl:space-x-4 text-base xl:text-lg overflow-x-auto whitespace-nowrap">
+    <div className="border-b xl:border-none max-w-6xl m-auto">
+      <div className="px-2 xl:px-0 lg:px-0 md:px-0 sm:px-0 z-10 bg-white">
+        <ul
+          style={{ scrollbarWidth: "1px" }}
+          className="py-3 flex uppercase text-sm items-center space-x-3 xl:space-x-4 font-semiBold xl:text-base overflow-x-auto whitespace-nowrap"
+        >
           <li
             onClick={() => setValue(1)}
             className={value === 1 ? "bg-gray-100 px-2 py-1 rounded-md font-semibold cursor-pointer" : "px-2 py-1 cursor-pointer"}
@@ -18,7 +21,7 @@ const HeaderTabs = () => {
           >
             T-Shirts
           </li>
-          {/* <li
+          <li
             onClick={() => setValue(3)}
             className={value === 3 ? "bg-gray-100 px-2 py-1 rounded-md font-semibold cursor-pointer" : "px-2 py-1 cursor-pointer"}
           >
@@ -47,7 +50,7 @@ const HeaderTabs = () => {
             className={value === 7 ? "bg-gray-100 px-2 py-1 rounded-md font-semibold cursor-pointer" : "px-2 py-1 cursor-pointer"}
           >
             Suits
-          </li> */}
+          </li>
         </ul>
       </div>
     </div>

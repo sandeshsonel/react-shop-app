@@ -1,40 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
-
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Loader from "src/components/Loader/Loader";
 
 import productDummy from "../../../assets/data/products";
 
-const ProductList = () => {
-  const [products, setProducts] = useState([]);
-
-  const getProducts = async () => {
-    const result = await axios.get("http://localhost:8000/api/v1/products");
-    setProducts(result.data.data.products);
-  };
-
-  useEffect(() => {
-    getProducts();
-  }, []);
-
-  console.log(products);
-
-  // if (products.length === 0) {
-  //   return (
-  //     <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
-  //       <Loader />
-  //     </div>
-  //   );
-  // }
-
+const ProductList = ({ products }) => {
   return (
     <div className="mt-2 xl:mt-4">
-      <div className="grid grid-cols-2 gap-3 xl:grid xl:grid-cols-3 xl:gap-4 ">
-        {productDummy.map((product) => (
+      <div className="grid grid-cols-2 gap-3 xl:grid xl:grid-cols-3 xl:gap-4 lg:grid lg:grid-cols-3 md:grid md:grid-cols-3 sm:grid sm:grid-cols-3 ">
+        {products.map((product) => (
           <Link to={`/productDetails/${product.gender}/${product.category}/${product.productName}/${product._id}`}>
-            <div className="cursor-pointer">
+            <div className="cursor-pointer hover:opacity-75">
               <div className="relative">
                 <img
                   src="https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/productimage/2019/7/27/110eefa8-e43b-4c42-85f7-83592dc9c9701564175877424-1.jpg"

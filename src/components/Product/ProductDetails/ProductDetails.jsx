@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import "./productlist.style.css";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
@@ -11,6 +14,17 @@ import productDummy from "../../../assets/data/products";
 // redux
 import { addItemToCart, addSavedItem } from "../../../app/actions";
 import Loader from "src/components/Loader/Loader";
+
+const settings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  // centerMode: true
+  swipeToSlide: true,
+  arrow: true,
+};
 
 const ProductDetails = (props) => {
   console.log(props);
@@ -91,11 +105,29 @@ const ProductDetails = (props) => {
   return (
     <div className="pb-28">
       <div>
-        <img
+        {/* <img
           className="justify-center xl:w-80 mt-10"
           src="https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/productimage/2019/7/27/110eefa8-e43b-4c42-85f7-83592dc9c9701564175877424-1.jpg"
           alt=""
-        />
+        /> */}
+        <div className="mt-10">
+          <Slider {...settings}>
+            <div>
+              <img
+                className="w-auto"
+                src="https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/productimage/2019/7/27/110eefa8-e43b-4c42-85f7-83592dc9c9701564175877424-1.jpg"
+                alt=""
+              />
+            </div>
+            <div>
+              <img
+                className="w-auto"
+                src="https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/productimage/2019/7/27/110eefa8-e43b-4c42-85f7-83592dc9c9701564175877424-1.jpg"
+                alt=""
+              />
+            </div>
+          </Slider>
+        </div>
       </div>
 
       <div className="px-3 mt-3 space-y-3">

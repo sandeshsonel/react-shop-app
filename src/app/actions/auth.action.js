@@ -23,3 +23,28 @@ export const signInUser = (data) => ({
 export const signOutUser = () => ({
   type: AuthActionTypes.SIGN_OUT_USER,
 });
+
+// export const signUpUserSuccess = (data) => ({
+//   type: AuthActionTypes.SIGN_UP_USER_SUCCESS,
+//   payload: data,
+// });
+
+// export const signUpUserFailed = (error) => ({
+//   type: AuthActionTypes.SIGN_UP_USER_FAILED,
+//   payload: error,
+// });
+// // -------------signUpUser-------------//
+
+// // -------------signINUser-------------//
+// export const signInUserStart = () => ({
+//   type: AuthActionTypes.SIGN_IN_USER_START,
+// });
+// export const signInUserSuccess = (data) => ({
+//   type: AuthActionTypes.SIGN_IN_USER_SUCCESS,
+//   payload: data,
+// });
+// export const signInUserFailed = (error) => ({
+//   type: AuthActionTypes.SIGN_IN_USER_FAILED,
+//   payload: error,
+// });
+// //

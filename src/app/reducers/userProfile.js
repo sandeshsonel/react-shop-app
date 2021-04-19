@@ -1,6 +1,5 @@
 const initial_state = {
-  firstName: "",
-  lastName: "",
+  isLogin: false,
 };
 
 const userProfileReducer = (state = initial_state, action) => {

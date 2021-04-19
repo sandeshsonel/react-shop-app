@@ -109,7 +109,7 @@ const Header = (props) => {
                 </Link>
               </div>
               <div className="">
-                <Link to={!isLogin ? "/profile" : "/loginSign"}>
+                <Link to={isLogin ? "/profile" : "/loginSign"}>
                   <div onClick={() => setValue(2)} className={value === 2 ? "border border-white px-1 py-1 rounded-md" : "border-none px-1 py-1"}>
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-6 fill-current text-white" viewBox="0 0 512 512">
                       <title>Person</title>

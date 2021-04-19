@@ -6,6 +6,7 @@ import authReducer from "../reducers/auth";
 import userProfileReducer from "../reducers/userProfile";
 import cartReducer from "../reducers/Cart";
 import savedItemReducer from "../reducers/SavedItems";
+import productReducer from "../reducers/products";
 
 const persistConfig = {
   key: "root",
@@ -18,6 +19,7 @@ const reducers = combineReducers({
   savedItem: savedItemReducer,
   auth: authReducer,
   userProfile: userProfileReducer,
+  products: productReducer,
 });
 
 export default persistReducer(persistConfig, reducers);

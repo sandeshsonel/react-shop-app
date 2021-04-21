@@ -12,7 +12,7 @@ import axios from "axios";
 import productDummy from "../../../assets/data/products";
 
 // redux
-import { addItemToCart, addSavedItem } from "../../../app/actions";
+import { addItemToCart, addSavedItem, removeItemToCart } from "../../../app/actions";
 import Loader from "src/components/Loader/Loader";
 
 const settings = {
@@ -28,7 +28,7 @@ const settings = {
 
 const ProductDetails = (props) => {
   console.log(props);
-  const { match, addItemToCart, addSavedItem, cart, savedItems, isLogin } = props;
+  const { match, addItemToCart, addSavedItem, cart, savedItems, isLogin, removeItemToCart } = props;
   const [product, setProducts] = useState({});
   const [selectSize, setSelectSize] = useState(null);
   const [snackbar, setSnackbar] = React.useState({
@@ -64,22 +64,56 @@ const ProductDetails = (props) => {
     setSnackbar({ ...snackbar, open: false });
   };
 
-  const handleAddItemToBag = () => {
+  const handleAddItemToBag = (product) => {
+    const alreadyItemInCart = cart.some((c) => product._id === c._id);
+    console.log("xolo", alreadyItemInCart);
+
     if (selectSize === null) {
-      alert("Please Select Size");
-      // setSnackbar({ ...snackbar, message: "Please Select Size", open: true, warning: "error" });
-      // setSnackbar({ ...snackbar, open: true });
+      setSnackbar({ ...snackbar, open: true, message: "Please Select Size", warning: "error" });
+      setTimeout(() => {
+        setSnackbar({ ...snackbar, open: false, message: "", warning: "" });
+      }, 2000);
+    } else if (alreadyItemInCart) {
+      setSnackbar({ ...snackbar, open: true, message: "Already item in cart", warning: "error" });
+      setTimeout(() => {
+        setSnackbar({ ...snackbar, open: false, message: "", warning: "" });
+      }, 2000);
+    } else {
+      addItemToCart({ ...product, selectSize: selectSize });
+      setSnackbar({ ...snackbar, open: true, message: "Add Item To Cart", warning: "success" });
+      setTimeout(() => {
+        setSnackbar({ ...snackbar, open: false, message: "", warning: "" });
+      }, 2000);
+      props.history.push("/cart");
     }
   };
 
   const handleSavedItem = (product) => {
-    if (isLogin) {
-      addSavedItem(product);
+    let alreadyItemInSaved = savedItems.some((saveItem) => product._id === saveItem._id);
+
+    if (alreadyItemInSaved) {
+      setSnackbar({ ...snackbar, open: true, message: "Already item exists in wishlist", warning: "error" });
+      setTimeout(() => {
+        setSnackbar({ ...snackbar, open: false, message: "", warning: "" });
+      }, 2000);
     } else {
-      props.history.push("/loginSign");
-      // <Redirect to="/auth" />;
-      return;
+      addSavedItem(product);
+      setSnackbar({ ...snackbar, open: true, message: "Item save in wishlist", warning: "success" });
+      setTimeout(() => {
+        setSnackbar({ ...snackbar, open: false, message: "", warning: "" });
+      }, 2000);
     }
+    // if (isLogin) {
+
+    // } else {
+    //   setSnackbar({ ...snackbar, open: true, message: "Please ", warning: "success" });
+    //   setTimeout(() => {
+    //     setSnackbar({ ...snackbar, open: false, message: "", warning: "" });
+    //   }, 2000);
+    //   props.history.push("/loginSign");
+    //   // <Redirect to="/auth" />;
+    //   return;
+    // }
   };
 
   const productDummyObject = productDummy.find((product) => product._id === match.params.id);
@@ -94,7 +128,7 @@ const ProductDetails = (props) => {
     let array = [];
 
     for (let i = 0; i < product.sizes.length; i++) {
-      array.push(<option value={product.sizes[i]}>{productDummyObject.sizes[i]}</option>);
+      array.push(<option value={product.sizes[i]}>{product.sizes[i]}</option>);
     }
 
     return array;
@@ -130,7 +164,7 @@ const ProductDetails = (props) => {
         </div>
       </div>
 
-      <div className="px-3 mt-3 space-y-3">
+      <div className="px-3 xl:px-0 mt-3 space-y-3">
         <div className="">
           <div className="leading-7">
             <h1 className="font-bold">{product.productName}</h1>
@@ -164,7 +198,7 @@ const ProductDetails = (props) => {
           </p>
         </div>
       </div>
-      <footer className="bottom-0 sticky w-full mt-10">
+      <footer className="px-3 xl:px-0 bottom-0 sticky w-full mt-10">
         <div className="flex items-center py-2 space-x-3 bg-white">
           <div className="w-full">
             <button onClick={() => handleSavedItem(product)} className="border w-full uppercase py-3 text-sm font-semiBold outline-none">
@@ -175,9 +209,10 @@ const ProductDetails = (props) => {
           </div>
           <div className="w-full">
             <button
-              // onClick={handleAddItemToBag}
+              type="submit"
+              onClick={() => handleAddItemToBag(product)}
               // onClick={handleClick({ vertical: "bottom", horizontal: "center" })}
-              onClick={() => addItemToCart({ ...product, quantity: 5 })}
+              // onClick={() => addItemToCart({ ...product, quantity: 5 })}
               className="w-full bg-black uppercase text-sm py-3 font-semiBold outline-none text-white"
             >
               <span>Add To Bag</span>

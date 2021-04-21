@@ -6,11 +6,14 @@ import ProductList from "src/components/Product/ProductList/ProductList";
 import Loader from "src/components/Loader/Loader";
 
 import { getProductStart } from "../../app/actions/product.action";
+import BottomNavigationBar from "src/components/BottomNavigation/BottomNavigation";
 
 const HomePage = ({ getProductStart, products }) => {
   console.log("popo-products", products);
   useEffect(() => {
-    getProductStart();
+    if (products.length === 0) {
+      getProductStart();
+    }
   }, []);
 
   if (products.length === 0) {
@@ -23,11 +26,13 @@ const HomePage = ({ getProductStart, products }) => {
   return (
     <div>
       <div className="mt-12">
+        {/* <Header /> */}
         <HeaderTabs />
         <div className="px-3 xl:px-0 md:px-0  mt-3">
           <ProductList products={products} />
         </div>
       </div>
+      {/* <BottomNavigationBar /> */}
     </div>
   );
 };

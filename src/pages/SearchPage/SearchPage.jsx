@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 
 const SearchPage = (props) => {
+  const [input, setInput] = useState("");
   const inputRef = useRef(null);
 
   useEffect(() => {});

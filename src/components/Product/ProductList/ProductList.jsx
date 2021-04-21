@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import productDummy from "../../../assets/data/products";
-
 const ProductList = ({ products }) => {
   return (
     <div className="mt-2 xl:mt-4">
@@ -15,7 +13,7 @@ const ProductList = ({ products }) => {
                   src="https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/productimage/2019/7/27/110eefa8-e43b-4c42-85f7-83592dc9c9701564175877424-1.jpg"
                   alt=""
                 />
-                <div className="absolute bottom-0 right-0 mr-2 mb-2 bg-white px-1 py-1 rounded-full">
+                {/* <div className="absolute bottom-0 right-0 mr-2 mb-2 bg-white px-1 py-1 rounded-full">
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-6" viewBox="0 0 512 512">
                     <title>Heart</title>
                     <path
@@ -27,7 +25,7 @@ const ProductList = ({ products }) => {
                       stroke-width="32"
                     />
                   </svg>
-                </div>
+                </div> */}
               </div>
               <div className="mt-1">
                 <h1 className="font-semiBold text-sm">{product.productName}</h1>

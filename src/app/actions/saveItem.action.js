@@ -5,9 +5,9 @@ export const addSavedItem = (item) => ({
   payload: item,
 });
 
-export const removeSavedItem = (id) => ({
+export const removeSavedItem = (itemId) => ({
   type: SavedItemActionType.REMOVE_SAVE_ITEM,
-  payload: id,
+  payload: itemId,
 });
 
 export const clearAllSaveItem = () => ({

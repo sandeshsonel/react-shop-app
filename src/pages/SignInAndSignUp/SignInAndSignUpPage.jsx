@@ -37,8 +37,8 @@ const SignInAndSignUpPage = ({ signUpUser, handleClose }) => {
               onClick={() => setValue(1)}
               className={
                 value === 1
-                  ? "w-full border-b-2 focus:outline-none py-3 uppercase font-semibold outline-none text-sm border-black"
-                  : "w-full outline-none focus:outline-none border-none py-3 uppercase font-semibold text-sm"
+                  ? "w-full border-b-2 focus:outline-none py-3 uppercase font-semiBold outline-none text-sm border-black"
+                  : "w-full outline-none focus:outline-none border-none py-3 uppercase text-gray-500 font-semibold text-sm"
               }
             >
               New To Shops?
@@ -50,8 +50,8 @@ const SignInAndSignUpPage = ({ signUpUser, handleClose }) => {
               onClick={() => setValue(2)}
               className={
                 value === 2
-                  ? "w-full border-b-2 outline-none py-3 uppercase font-semibold text-sm border-black"
-                  : "w-full outline-none py-3 uppercase font-semibold text-sm"
+                  ? "w-full border-b-2 py-3 uppercase font-semiBold text-sm border-black"
+                  : "w-full outline-none py-3 uppercase font-semibold text-sm text-gray-500"
               }
             >
               Already Registered?
@@ -62,14 +62,14 @@ const SignInAndSignUpPage = ({ signUpUser, handleClose }) => {
         {value === 1 ? (
           <div className="pb-10">
             <div className="py-3 px-4">
-              <h1 className="text-center font-semibold uppercase font-serif">Sign Up Using Your Email Address</h1>
+              <h1 className="text-center text-lg font-semiBold uppercase font-serif">Sign Up Using Your Email Address</h1>
             </div>
             <SignUpForm />
           </div>
         ) : (
           <div className="pb-10">
             <div className="py-3 px-4">
-              <h1 className="text-center text-lg font-semibold uppercase font-serif">Sign In With Email</h1>
+              <h1 className="text-center text-lg font-semiBold uppercase font-serif">Sign In With Email</h1>
             </div>
             <SignInForm />
           </div>

@@ -66,7 +66,7 @@ class SignInForm extends Component {
               </div>
             </div>
             <div className="mt-10">
-              <button type="submit" className="w-full uppercase font-semibold bg-black text-white py-2 ">
+              <button type="submit" className="w-full uppercase bg-black shadow-md text-white py-3 font-semiBold">
                 Sign In
               </button>
             </div>

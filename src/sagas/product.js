@@ -14,8 +14,9 @@ const getProducts3 = async () => {
 function* getProducts2() {
   try {
     const products = yield call(getProducts3);
-    console.log("xoxoxox", products.data.products);
+
     if (Number(products.status) === 1) {
+      console.log("xoxoxox", products.data, products.status);
       yield put(getProductSuccess(products.data.products));
     } else if (Number(products.status) === 0) {
       yield put(getProductFailure(products.message));

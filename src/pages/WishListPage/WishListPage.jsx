@@ -6,7 +6,7 @@ import WishListProductList from "./WishListProductList/WishListProductList";
 const WishListPage = ({ isLogin, wishListItems }) => {
   return (
     <div className="">
-      {!isLogin ? (
+      {!wishListItems.length ? (
         <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} className="max-w-xs">
           <div className="flex flex-col flex-nowrap justify-between text-center">
             <div>

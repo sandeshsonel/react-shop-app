@@ -7,17 +7,18 @@ const initialState = {
 };
 
 const productsReducers = (state = initialState, action) => {
-  switch (action.types) {
+  console.log(action.type);
+  switch (action.type) {
     case ProductActionTypes.GET_PRODUCTS_START:
       return {
         ...state,
         isFetching: true,
       };
     case ProductActionTypes.GET_PRODUCTS_SUCCESS:
-      console.log(action.payload);
+      console.log("momo", action.payload);
       return {
         ...state,
-        products: [...state.products, action.payload],
+        products: action.payload,
         isFetching: false,
       };
     case ProductActionTypes.GET_PRODUCTS_FAILURE:

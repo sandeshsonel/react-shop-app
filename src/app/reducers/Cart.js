@@ -6,15 +6,17 @@ const initial_state = {
 };
 
 const cartReducer = (state = initial_state, action) => {
+  console.log("xolo-action", action.payload);
   switch (action.type) {
     case CartActionType.ADD_ITEM_TO_CART:
       return {
         ...state,
-        cart: addItemToCart(state.cart, action.payload),
+        cart: [...state.cart, action.payload],
       };
     case CartActionType.REMOVE_ITEM_TO_CART:
       return {
         ...state,
+        cart: state.cart.filter((cart) => action.payload !== cart._id),
       };
     case CartActionType.CLEAR_ITEM_FROM_CART:
       return {

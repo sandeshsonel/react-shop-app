@@ -219,7 +219,7 @@ const SignUpForm = ({ signUpUser }) => {
                 </div>
               </div>
             </div>
-            <div className="mt-4">
+            {/* <div className="mt-4">
               <p className="text-xs">
                 By creating your account, you agree to our &nbsp;
                 <a className="underline" href="">
@@ -230,7 +230,7 @@ const SignUpForm = ({ signUpUser }) => {
                   Privacy Policy
                 </a>
               </p>
-            </div>
+            </div> */}
           </div>
           <div className="mt-8 bottom-0 py-3 sticky w-full">
             <button type="submit" className="w-full uppercase font-semibold bg-black shadow-md text-white py-3 ">

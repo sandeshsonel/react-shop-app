@@ -198,8 +198,8 @@ const ProductDetails = (props) => {
           </p>
         </div>
       </div>
-      <footer className="px-3 xl:px-0 bottom-0 sticky w-full mt-10">
-        <div className="flex items-center py-2 space-x-3 bg-white">
+      <footer className="px-3 py-2 bg-white xl:px-0 lg:px-0 md:px-0 sm:px-0 bottom-0 sticky w-full mt-10">
+        <div className="flex items-center space-x-3">
           <div className="w-full">
             <button onClick={() => handleSavedItem(product)} className="border w-full uppercase py-3 text-sm font-semiBold outline-none">
               <div>

@@ -13,6 +13,18 @@ const authReducer = (state = initial_state, action) => {
         ...state,
         isLogin: action.payload,
       };
+    case AuthActionTypes.SET_USER_DATA:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case AuthActionTypes.USER_SIGN_OUT_SUCCESS:
+      return {
+        ...state,
+        islogin: false,
+        token: "",
+        expireDate: "",
+      };
     default:
       return state;
   }

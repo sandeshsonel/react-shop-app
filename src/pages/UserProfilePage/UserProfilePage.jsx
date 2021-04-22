@@ -1,11 +1,18 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+
+// actions
+import { signOutUser } from "../../app/actions";
+
+// icons
 import orderIcon from "../../assets/images/order.svg";
 import myDetailsIcon from "../../assets/images/myDetails.svg";
 import addressIcon from "../../assets/images/home.svg";
 import paymentIcon from "../../assets/images/payment.svg";
 
-const UserProfilePage = () => {
+const UserProfilePage = (props) => {
+  const { signOutUser } = props;
   return (
     <div className="mt-16">
       <div className="px-3 xl:px-0 lg:px-0 md:px-0 sm:px-0">
@@ -32,22 +39,24 @@ const UserProfilePage = () => {
             </Link>
           </li>
           <li>
-            <div className="flex items-center justify-between space-x-4 py-3 border-b-4 border-gray-200" href="">
-              <div className="flex space-x-4">
-                {/* <div>
+            <Link to="/profile/myDetails">
+              <div className="flex items-center justify-between space-x-4 py-3 border-b-4 border-gray-200" href="">
+                <div className="flex space-x-4">
+                  {/* <div>
                   <img className="w-5" src={orderIcon} alt="" />
                 </div> */}
-                <div className="w-full">
-                  <span className="font-semiBold uppercase">My Details</span>
+                  <div className="w-full">
+                    <span className="font-semiBold uppercase">My Details</span>
+                  </div>
+                </div>
+                <div>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5" viewBox="0 0 512 512">
+                    <title>Chevron Forward</title>
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144" />
+                  </svg>
                 </div>
               </div>
-              <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5" viewBox="0 0 512 512">
-                  <title>Chevron Forward</title>
-                  <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144" />
-                </svg>
-              </div>
-            </div>
+            </Link>
           </li>
           <li>
             <div className="flex items-center justify-between space-x-4 py-3 border-b-4 border-gray-200" href="">
@@ -84,7 +93,9 @@ const UserProfilePage = () => {
                   </svg>
                 </div>
                 <div className="w-full">
-                  <span className="font-semiBold uppercase">Sign out</span>
+                  <span onClick={signOutUser} className="font-semiBold uppercase">
+                    Sign out
+                  </span>
                 </div>
               </div>
             </div>
@@ -95,4 +106,10 @@ const UserProfilePage = () => {
   );
 };
 
-export default UserProfilePage;
+const mapStateToProps = (state) => ({});
+
+const mapDispatchToProps = (dispatch) => ({
+  signOutUser: () => dispatch(signOutUser()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfilePage);

@@ -44,7 +44,7 @@ const WishListProductList = (props) => {
     <div className="px-3 xl:px-0 mt-16">
       <div className="grid grid-cols-2 xl:grid-cols-3 gap-3">
         {savedItems.map((item, idx) => (
-          <div className="x" key={idx}>
+          <div className="" key={idx}>
             <div className="relative">
               <img
                 className=""
@@ -66,7 +66,7 @@ const WishListProductList = (props) => {
                 </div>
               </div>
               <div className="w-full py-2">
-                <select onClick="" className="w-full border border-black">
+                <select onClick="" className="w-full border bg-white py-1 border-black">
                   <option selected disabled>
                     Select size
                   </option>
@@ -74,11 +74,7 @@ const WishListProductList = (props) => {
                 </select>
               </div>
               <div>
-                <button
-                  onClick={() => handleMoveItemToBag(item)}
-                  // onClick={() => addItemToCart(item)}
-                  className="w-full border-2 border-green-600 font-semiBold uppercase py-1 text-sm"
-                >
+                <button onClick={() => handleMoveItemToBag(item)} className="w-full border-2 border-green-600 font-semiBold uppercase py-1 text-sm">
                   Move To Bag
                 </button>
               </div>

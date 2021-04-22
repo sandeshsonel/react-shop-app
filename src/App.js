@@ -1,14 +1,15 @@
-import { PersistGate } from "redux-persist/integration/react";
-import { Provider } from "react-redux";
-import { store, persistor } from "./store";
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import ProductDetails from "./components/Product/ProductDetails/ProductDetails";
 
+import { setLogin } from "./app/actions";
+
+//pages
+import ProductDetails from "./components/Product/ProductDetails/ProductDetails";
 import CartPage from "./pages/Cart/CartPage";
 import HomePage from "./pages/HomePage/HomePage";
 import WishListPage from "./pages/WishListPage/WishListPage";
 import UserProfilePage from "./pages/UserProfilePage/UserProfilePage";
-
 import Header from "./components/Header/Header";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import ProductCategory from "./components/Product/ProductCategory/ProductCategory";
@@ -16,39 +17,80 @@ import ProductList from "./components/Product/ProductList/ProductList";
 import ProductDescriptionPage from "./components/ProductDescriptionPage/ProductDescriptionPage";
 import SignInAndSignUpPage from "./pages/SignInAndSignUp/SignInAndSignUpPage";
 import BottomNavigationBar from "./components/BottomNavigation/BottomNavigation";
-import OrderPage from "./pages/UserProfilePage/ChildPages/OrderPage/OrderPage";
+import MyOrderPage from "./pages/UserProfilePage/ChildPages/OrderPage/MyOrderPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
+import MyDetailsPage from "./pages/UserProfilePage/ChildPages/MyDetailsPage/MyDetailsPage";
+import AddressPage from "./pages/UserProfilePage/ChildPages/AddressPage/AddressPage";
 
-function App() {
-  return (
-    <div className="">
-      <div className="font-futura  max-w-2xl m-auto">
-        <Provider store={store}>
-          <PersistGate persistor={persistor}>
-            <BrowserRouter>
-              <Switch>
-                <Route exact path="/" component={HomePage} />
-                <Route path="/cart" component={CartPage} />
-                <Route path="/wishlist" component={WishListPage} />
-                <Route path="/profile/orders" component={OrderPage} />
+class App extends Component {
+  constructor(props) {
+    super(props);
 
-                <Route path="/profile" component={UserProfilePage} />
+    this.state = {};
+  }
 
-                <Route path="/search" component={SearchPage} />
-                {/* 
+  checkAutoLogin = () => {
+    const { token, expireDate, setLogin, getUserDetails, fetchCompanyDetails } = this.props;
+    if (token && new Date(expireDate) > new Date()) {
+      setLogin(true);
+      // getUserDetails();
+      // fetchCompanyDetails();
+    } else {
+      setLogin(false);
+    }
+  };
+
+  componentDidMount() {
+    this.checkAutoLogin();
+    // this.setState({
+    //   isLoading: false,
+    // });
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.token !== this.props.token || new Date(this.props.expireDate) > new Date()) {
+      this.checkAutoLogin();
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <div className="font-futura  max-w-2xl m-auto">
+          <BrowserRouter>
+            <Switch>
+              <Route exact path="/" component={HomePage} />
+              <Route path="/cart" component={CartPage} />
+              <Route path="/wishlist" component={WishListPage} />
+              <Route path="/profile/orders" component={MyOrderPage} />
+              <Route path="/profile/myDetails" component={MyDetailsPage} />
+              <Route path="/profile/address" component={AddressPage} />
+
+              <Route path="/profile" component={UserProfilePage} />
+
+              <Route path="/search" component={SearchPage} />
+              {/* 
                 <Route path="/:productype/:type" component={ProductList} /> */}
-                <Route path="/productDetails/:type/:category/:productName/:id" component={ProductDetails} />
-                <Route path="/loginSign" component={SignInAndSignUpPage} />
-                <Route component={NotFoundPage} />
-              </Switch>
-              <Header />
-              <BottomNavigationBar />
-            </BrowserRouter>
-          </PersistGate>
-        </Provider>
+              <Route path="/productDetails/:type/:category/:productName/:id" component={ProductDetails} />
+              <Route path="/loginSign" component={SignInAndSignUpPage} />
+              <Route component={NotFoundPage} />
+            </Switch>
+            <Header />
+            <BottomNavigationBar />
+          </BrowserRouter>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  isLogin: state.auth.isLogin,
+  token: state.auth.token,
+  expireDate: state.auth.expireDate,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setLogin: (flag) => dispatch(setLogin(flag)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

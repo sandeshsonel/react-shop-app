@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
+import { Button } from "@material-ui/core";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     textTransform: "uppercase",
@@ -37,7 +39,7 @@ const BottomNavigationBar = () => {
       <div class="w-full h-screen block xl:hidden lg:hidden md:hidden sm:hidden">
         <section id="bottom-navigation" class="block fixed inset-x-0 bottom-0 z-10 bg-white shadow border-t">
           <div id="tabs" class="flex justify-between">
-            <div class="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center pt-2 pb-1">
+            <button class="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center pt-2 pb-1">
               <Link to="/">
                 <a onClick={() => setValue(1)}>
                   {value === 1 ? (
@@ -66,11 +68,11 @@ const BottomNavigationBar = () => {
                       />
                     </svg>
                   )}
-                  <span class={value === 1 ? "tab tab-home block text-xs font-semiBold" : "tab tab-home block text-xs"}>Home</span>
+                  <span class={value === 1 ? "tab tab-home block text-xs font-semiBold uppercase" : "tab tab-home block text-xs uppercase"}>Home</span>
                 </a>
               </Link>
-            </div>
-            <div class="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center pt-2 pb-1">
+            </button>
+            <button class="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center pt-2 pb-1">
               <Link to="/search">
                 <a onClick={() => setValue(2)}>
                   {value === 2 ? (
@@ -91,11 +93,11 @@ const BottomNavigationBar = () => {
                       <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448" />
                     </svg>
                   )}
-                  <span className={value === 2 ? "tab tab-home block text-xs font-semiBold" : "tab tab-home block text-xs"}>Search</span>
+                  <span className={value === 2 ? "tab tab-home block text-xs font-semiBold uppercase" : "tab tab-home block text-xs uppercase"}>Search</span>
                 </a>
               </Link>
-            </div>
-            <div className="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center pt-2 pb-1">
+            </button>
+            <button className="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center pt-2 pb-1">
               <Link to="/wishlist">
                 <a onClick={() => setValue(3)}>
                   {value === 3 ? (
@@ -116,11 +118,11 @@ const BottomNavigationBar = () => {
                       />
                     </svg>
                   )}
-                  <span className={value === 3 ? "tab tab-home block text-xs font-semiBold" : "tab tab-home block text-xs"}>WishList</span>
+                  <span className={value === 3 ? "tab tab-home block text-xs font-semiBold uppercase" : "tab tab-home block text-xs uppercase"}>WishList</span>
                 </a>
               </Link>
-            </div>
-            <div className="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center pt-2 pb-1">
+            </button>
+            <button className="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center pt-2 pb-1">
               <Link to="cart">
                 <a onClick={() => setValue(4)}>
                   {value === 4 ? (
@@ -141,10 +143,10 @@ const BottomNavigationBar = () => {
                       />
                     </svg>
                   )}
-                  <span className={value === 4 ? "tab tab-home block text-xs font-semiBold" : "tab tab-home block text-xs"}>Cart</span>
+                  <span className={value === 4 ? "tab tab-home block text-xs font-semiBold uppercase" : "tab tab-home block text-xs uppercase"}>Cart</span>
                 </a>
               </Link>
-            </div>
+            </button>
           </div>
         </section>
       </div>

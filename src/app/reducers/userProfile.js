@@ -1,14 +1,11 @@
-const initial_state = {
-  isLogin: false,
-};
+import UserProfileActionTypes from "../types/userprofile.types";
+
+const initial_state = {};
 
 const userProfileReducer = (state = initial_state, action) => {
   switch (action.type) {
-    case "IS_LOGIN_USER":
-      return {
-        ...state,
-        isLogin: action.payload,
-      };
+    case UserProfileActionTypes.SET_USER_PROFILE_DATA:
+      return action.payload;
     default:
       return state;
   }

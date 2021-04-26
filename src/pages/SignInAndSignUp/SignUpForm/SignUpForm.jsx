@@ -91,15 +91,17 @@ const SignUpForm = ({ signUpUser }) => {
                 type="email"
                 className="border focus:bg-white border-black w-full py-2 px-2 mt-1 outline-none"
               />
-              <span className="text-xs text-gray-500">We'll send your order confirmation here</span>
+              {/* <span className="text-xs text-gray-500">We'll send your order confirmation here</span> */}
             </div>
-            <div>
-              <label className="uppercase font-semiBold text-gray-400  text-sm">First Name:</label>
-              <input required name="firstName" onChange={handleChange} type="text" className="border border-black w-full py-2 px-2 mt-1 outline-none" />
-            </div>
-            <div>
-              <label className="uppercase font-semiBold text-gray-400  text-sm">Last Name:</label>
-              <input required name="lastName" onChange={handleChange} type="text" className="border border-black w-full py-2 px-2 mt-1 outline-none" />
+            <div className="xl:flex items-center space-y-3 xl:space-y-0 lg:space-y-0 md:space-y-0 sm:space-y-0 lg:flex md:flex sm:flex xl:space-x-4 lg:space-x-4 md:space-x-4 sm:space-x-4">
+              <div className="w-full">
+                <label className="uppercase font-semiBold text-gray-400  text-sm">First Name:</label>
+                <input required name="firstName" onChange={handleChange} type="text" className="border border-black w-full py-2 px-2 mt-1 outline-none" />
+              </div>
+              <div className="w-full">
+                <label className="uppercase font-semiBold text-gray-400  text-sm">Last Name:</label>
+                <input required name="lastName" onChange={handleChange} type="text" className="border border-black w-full py-2 px-2 mt-1 outline-none" />
+              </div>
             </div>
             <div>
               <label className="uppercase font-semiBold text-gray-400 text-sm">Password:</label>
@@ -132,7 +134,7 @@ const SignUpForm = ({ signUpUser }) => {
                   )}
                 </div>
               </div>
-              <span className="text-xs text-gray-500">Must be 10 or more characters</span>
+              <span className="text-xs text-gray-500">Must be 8 or more characters</span>
             </div>
             <div>
               <label className="uppercase font-semiBold text-gray-400  text-sm">Confirm Password:</label>
@@ -151,7 +153,7 @@ const SignUpForm = ({ signUpUser }) => {
                   <select
                     required={true}
                     onChange={(e) => setUserDetails({ ...userDetails, dateOfBirth: { ...userDetails.dateOfBirth, date: e.target.value } })}
-                    className="w-full py-2 border border-black bg-white outline-none"
+                    className="w-full cursor-pointer py-2 border border-black bg-white outline-none"
                     name=""
                     id=""
                   >
@@ -165,7 +167,7 @@ const SignUpForm = ({ signUpUser }) => {
                   <select
                     required
                     onChange={(e) => setUserDetails({ ...userDetails, dateOfBirth: { ...userDetails.dateOfBirth, month: e.target.value } })}
-                    className="w-full py-2 border border-black bg-white outline-none"
+                    className="w-full cursor-pointer py-2 border border-black bg-white outline-none"
                     name=""
                     id=""
                   >
@@ -179,7 +181,7 @@ const SignUpForm = ({ signUpUser }) => {
                   <select
                     required
                     onChange={(e) => setUserDetails({ ...userDetails, dateOfBirth: { ...userDetails.dateOfBirth, year: e.target.value } })}
-                    className="w-full py-2 border border-black bg-white outline-none"
+                    className="w-full cursor-pointer py-2 border border-black bg-white outline-none"
                     name=""
                     id=""
                   >

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Slide } from "react-slideshow-image";
 import IconButton from "@material-ui/core/IconButton";
@@ -6,12 +7,12 @@ import Drawer from "@material-ui/core/Drawer";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 
-import { removeSavedItem, addItemToCart, removeItemToCart, addSavedItem } from "../../../app/actions";
+import { removeSavedItem, addItemToCart, removeItemToCart, addSavedItem, setRemoveCartItemStart } from "../../../app/actions";
 import { SignalCellularNullTwoTone } from "@material-ui/icons";
 
 const CartProductList = (props) => {
   console.log(props);
-  const { savedItems, removeSavedItem, cartItems, removeItemToCart, addSavedItem } = props;
+  const { savedItems, removeSavedItem, cartItems, removeItemToCart, addSavedItem, setRemoveCartItemStart } = props;
   const [state, setState] = React.useState({
     bottom: false,
   });
@@ -168,9 +169,11 @@ const CartProductList = (props) => {
           </ul>
         </div>
         <footer className=" w-full mt-6">
-          <button className="uppercase bottom-0 bg-green-500 hover:bg-green-600 outline-none shadow-md text-white font-semiBold w-full py-3 text-sm xl:text-base rounded-none">
-            Checkout
-          </button>
+          <Link to="/checkout">
+            <button className="uppercase bottom-0 bg-green-500 hover:bg-green-600 outline-none shadow-md text-white font-semiBold w-full py-3 text-sm xl:text-base rounded-none">
+              Checkout
+            </button>
+          </Link>
         </footer>
       </footer>
       {moreInfoDetail !== {} && (
@@ -196,7 +199,8 @@ const CartProductList = (props) => {
               <li
                 onClick={() => {
                   setState({ bottom: false });
-                  removeItemToCart(moreInfoDetail._id);
+                  setRemoveCartItemStart(moreInfoDetail._id);
+                  // removeItemToCart(moreInfoDetail._id);
                 }}
                 className="py-4 text-red-500 cursor-pointer"
               >
@@ -227,6 +231,8 @@ const mapDispatchToProps = (dispatch) => ({
   removeSavedItem: (id) => dispatch(removeSavedItem(id)),
   removeItemToCart: (itemId) => dispatch(removeItemToCart(itemId)),
   addSavedItem: (item) => dispatch(addSavedItem(item)),
+  // online
+  setRemoveCartItemStart: (itemId) => dispatch(setRemoveCartItemStart(itemId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartProductList);

@@ -180,7 +180,7 @@ const ProductDetails = (props) => {
           <span className="font-semiBold uppercase text-sm text-gray-500">Size:</span>
           <div className="mt-1">
             <select
-              onClick={(e) => setSelectSize(e.target.value)}
+              onChange={(e) => setSelectSize(e.target.value)}
               class="block border border-gray-400 focus:border-black py-2 px-1 xl:py-2 xl:px-2 bg-white outline-none w-full"
             >
               <option selected disabled>
@@ -201,7 +201,10 @@ const ProductDetails = (props) => {
       <footer className="px-3 py-2 bg-white xl:px-0 lg:px-0 md:px-0 sm:px-0 bottom-0 sticky w-full mt-10">
         <div className="flex items-center space-x-3">
           <div className="w-full">
-            <button onClick={() => handleSavedItem(product)} className="border w-full uppercase py-3 text-sm font-semiBold outline-none">
+            <button
+              onClick={() => handleSavedItem(product)}
+              className="border w-full uppercase py-3 text-sm xl:text-base lg:text-base md:text-base sm:text-base font-semiBold outline-none"
+            >
               <div>
                 <span>WishList</span>
               </div>
@@ -211,9 +214,7 @@ const ProductDetails = (props) => {
             <button
               type="submit"
               onClick={() => handleAddItemToBag(product)}
-              // onClick={handleClick({ vertical: "bottom", horizontal: "center" })}
-              // onClick={() => addItemToCart({ ...product, quantity: 5 })}
-              className="w-full bg-black uppercase text-sm py-3 font-semiBold outline-none text-white"
+              className="w-full bg-black uppercase text-sm xl:text-base lg:text-base md:text-base sm:text-base py-3 font-semiBold outline-none text-white"
             >
               <span>Add To Bag</span>
             </button>

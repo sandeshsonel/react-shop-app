@@ -1,7 +1,13 @@
 import ProductActionTypes from "../types/products.types";
 
-export const getProductStart = () => ({
+export const setGetProductQuery = (query) => ({
+  type: ProductActionTypes.SET_GET_PRODUCT_QUERY,
+  payload: query,
+});
+
+export const getProductStart = (query) => ({
   type: ProductActionTypes.GET_PRODUCTS_START,
+  payload: query,
 });
 
 export const getProductSuccess = function (products) {

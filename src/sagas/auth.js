@@ -32,7 +32,9 @@ function* signInUserFun({ payload }) {
         expireDate,
       };
       localStorage.setItem("userData", JSON.stringify(saveUserData));
-      //   yield put(setUserData(saveUserData));
+      yield put(setUserData(saveUserData));
+      yield put(setLogin(true));
+      yield put(setUserProfileData(signInData.data));
     }
   } catch (error) {}
 }

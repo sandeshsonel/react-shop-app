@@ -1,13 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import CartProductList from "../../pages/Cart/CartProductList/CartProductList";
 
+import { getCartItemStart } from "../../app/actions";
+import Loader from "src/components/Loader/Loader";
+
 const CartPage = (props) => {
-  const { cartItems } = props;
-  console.log(cartItems);
+  const { cartItems, getCartItemStart, isLoading } = props;
+  console.log("momo", isLoading);
+
+  useEffect(() => {
+    getCartItemStart();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
+        <Loader />
+      </div>
+    );
+  }
+
   return (
-    <div className="px-3">
+    <div className="px-3 xl:px-0 lg:px-0 md:px-0 sm:px-0">
       {!cartItems.length ? (
         <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} className="max-w-xs">
           <div className="flex flex-col flex-nowrap justify-between text-center">
@@ -35,6 +51,7 @@ const CartPage = (props) => {
                   <a className="underline text-sm">Continue Shopping</a>
                 </Link>
               </div>
+              <button onClick={() => getCartItemStart()}>Get Cart Items</button>
             </div>
           </div>
         </div>
@@ -47,6 +64,11 @@ const CartPage = (props) => {
 
 const mapStateToProps = (state) => ({
   cartItems: state.cart.cart,
+  isLoading: state.cart.isLoading,
 });
 
-export default connect(mapStateToProps)(CartPage);
+const mapDispatchToProps = (dispatch) => ({
+  getCartItemStart: (cartItems) => dispatch(getCartItemStart(cartItems)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartPage);

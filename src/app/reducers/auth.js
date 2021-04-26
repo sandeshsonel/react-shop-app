@@ -1,3 +1,4 @@
+import storage from "redux-persist/lib/storage";
 import AuthActionTypes from "../types/auth.types";
 
 const initial_state = {
@@ -7,6 +8,9 @@ const initial_state = {
 };
 
 const authReducer = (state = initial_state, action) => {
+  if (action.type === "USER_SIGN_OUT_SUCCESS") {
+    storage.removeItem("persist:root");
+  }
   switch (action.type) {
     case AuthActionTypes.IS_LOGIN_USER:
       return {
@@ -21,7 +25,7 @@ const authReducer = (state = initial_state, action) => {
     case AuthActionTypes.USER_SIGN_OUT_SUCCESS:
       return {
         ...state,
-        islogin: false,
+        isLogin: false,
         token: "",
         expireDate: "",
       };

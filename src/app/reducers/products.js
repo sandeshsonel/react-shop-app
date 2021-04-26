@@ -9,7 +9,7 @@ const initialState = {
 const productsReducers = (state = initialState, action) => {
   console.log(action.type);
   switch (action.type) {
-    case ProductActionTypes.GET_PRODUCTS_START:
+    case ProductActionTypes.SET_GET_PRODUCT_QUERY:
       return {
         ...state,
         isFetching: true,

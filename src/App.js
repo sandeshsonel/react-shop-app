@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, lazy } from "react";
 import { connect } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
@@ -20,7 +20,9 @@ import BottomNavigationBar from "./components/BottomNavigation/BottomNavigation"
 import MyOrderPage from "./pages/UserProfilePage/ChildPages/OrderPage/MyOrderPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import MyDetailsPage from "./pages/UserProfilePage/ChildPages/MyDetailsPage/MyDetailsPage";
+import Dashboard from "./pages/Dashboard/Dashboard";
 import AddressPage from "./pages/UserProfilePage/ChildPages/AddressPage/AddressPage";
+import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
 
 class App extends Component {
   constructor(props) {
@@ -56,22 +58,23 @@ class App extends Component {
     return (
       <div>
         <div className="font-futura  max-w-2xl m-auto">
+          {/* <Dashboard /> */}
           <BrowserRouter>
             <Switch>
               <Route exact path="/" component={HomePage} />
               <Route path="/cart" component={CartPage} />
               <Route path="/wishlist" component={WishListPage} />
+              <Route path="/profile/address" component={AddressPage} />
+
               <Route path="/profile/orders" component={MyOrderPage} />
               <Route path="/profile/myDetails" component={MyDetailsPage} />
-              <Route path="/profile/address" component={AddressPage} />
 
               <Route path="/profile" component={UserProfilePage} />
 
               <Route path="/search" component={SearchPage} />
-              {/* 
-                <Route path="/:productype/:type" component={ProductList} /> */}
               <Route path="/productDetails/:type/:category/:productName/:id" component={ProductDetails} />
               <Route path="/loginSign" component={SignInAndSignUpPage} />
+              <Route path="/checkout" component={CheckoutPage} />
               <Route component={NotFoundPage} />
             </Switch>
             <Header />

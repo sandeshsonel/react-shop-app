@@ -1,5 +1,52 @@
 import CartActionType from "../types/cart.types";
 
+//----------GET-----------//
+export const getCartItemStart = () => ({
+  type: CartActionType.GET_CART_ITEM_START,
+});
+
+export const getCartItemSuccess = (cartItems) => ({
+  type: CartActionType.GET_CART_ITEM_SUCCESS,
+  payload: cartItems,
+});
+
+export const getCartItemFailed = (errMsg) => ({
+  type: CartActionType.GET_CART_ITEM_FAILED,
+  payload: errMsg,
+});
+
+//----------ADD-----------//
+export const setAddCartItemStart = (addItem) => ({
+  type: CartActionType.ADD_ITEM_TO_CART_START,
+  payload: addItem,
+});
+
+export const addCartItemSuccess = (cartItem) => ({
+  type: CartActionType.ADD_ITEM_TO_CART_SUCCESS,
+  payload: cartItem,
+});
+
+export const addCartItemFailed = (errorMsg) => ({
+  type: CartActionType.ADD_ITEM_TO_CART_FAILED,
+  payload: errorMsg,
+});
+
+//----------REMOVE-----------//
+export const setRemoveCartItemStart = (itemId) => ({
+  type: CartActionType.REMOVE_ITEM_TO_CART_START,
+  payload: itemId,
+});
+
+export const removeCartItemSuccess = (successMsg) => ({
+  type: CartActionType.REMOVE_ITEM_TO_CART_SUCCESS,
+  payload: successMsg,
+});
+
+export const removeCartItemFailed = (errorMsg) => ({
+  type: CartActionType.REMOVE_ITEM_TO_CART_FAILED,
+  payload: errorMsg,
+});
+
 export const addItemToCart = (item) => ({
   type: CartActionType.ADD_ITEM_TO_CART,
   payload: item,

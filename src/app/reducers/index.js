@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
+import shopReducer from "../reducers/shopReducer";
 import authReducer from "../reducers/auth";
 import userProfileReducer from "../reducers/userProfile";
 import cartReducer from "../reducers/Cart";
@@ -11,7 +12,10 @@ import productReducer from "../reducers/products";
 const persistConfig = {
   key: "root",
   storage,
-  // whitelist: ["cart"],
+  // Whitelist (Save Specific Reducers)
+  whitelist: ["auth", "userProfile"],
+  // Blacklist (Don't Save Specific Reducers)
+  // blacklist: ['authReducer.loading'],
 };
 
 const reducers = combineReducers({
@@ -20,6 +24,9 @@ const reducers = combineReducers({
   auth: authReducer,
   userProfile: userProfileReducer,
   products: productReducer,
+  shop: shopReducer,
 });
+
+// export default reducers;
 
 export default persistReducer(persistConfig, reducers);

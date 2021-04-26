@@ -13,7 +13,7 @@ const MyOrderPage = () => {
             </svg>
           </div>
         </div>
-        <div>
+        <div className="text-center">
           <span className="text-center justify-center">My Orders</span>
         </div>
       </div>

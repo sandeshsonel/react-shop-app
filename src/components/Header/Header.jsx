@@ -8,6 +8,8 @@ import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
 import SignInAndSignUpPage from "src/pages/SignInAndSignUp/SignInAndSignUpPage";
 
+import { setRoute } from "../../app/actions";
+
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "relative",
@@ -28,7 +30,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const Header = (props) => {
   const pathname = window.location.pathname;
   console.log("momo", pathname);
-  const { isLogin } = props;
+  const { isLogin, setRoute, myRoute } = props;
   const classes = useStyles();
   const [state, setState] = React.useState({
     left: false,
@@ -64,7 +66,7 @@ const Header = (props) => {
             </div> */}
             <div className="space-x-4 flex items-center">
               <Link to="/">
-                <a href="">
+                <a onClick={() => (myRoute !== "/" ? setRoute("/") : null)} href="">
                   <div>
                     <svg class="w-16" viewBox="0 0 104 30" role="img">
                       <path
@@ -256,6 +258,11 @@ const Header = (props) => {
 
 const mapStateToProps = (state) => ({
   isLogin: state.auth.isLogin,
+  myRoute: state.shop.myRoute,
 });
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = (dispatch) => ({
+  setRoute: (route) => dispatch(setRoute(route)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

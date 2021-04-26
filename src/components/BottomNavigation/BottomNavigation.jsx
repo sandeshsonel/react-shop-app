@@ -1,7 +1,11 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
 
+// action
+import { setRoute } from "../../app/actions";
+
+import { makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -29,20 +33,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const BottomNavigationBar = () => {
-  const pathname = window.location.pathname;
-  console.log("xolo", pathname);
-  const classes = useStyles();
+const navigationRoutes = ["/", "search", "/wishlist", "/carts"];
+
+const BottomNavigationBar = (props) => {
+  // const classes = useStyles();
+  const { setRoute, myRoute } = props;
   const [value, setValue] = React.useState(1);
+
+  const pathname = window.location.pathname;
+  console.log("nono", pathname);
+
   return (
     <div className="">
       <div class="w-full h-screen block xl:hidden lg:hidden md:hidden sm:hidden">
         <section id="bottom-navigation" class="block fixed inset-x-0 bottom-0 z-10 bg-white shadow border-t">
           <div id="tabs" class="flex justify-between">
-            <button class="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center pt-2 pb-1">
+            <button
+              onClick={() => (myRoute !== "/" ? setRoute("/") : null)}
+              class="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center pt-2 pb-1"
+            >
               <Link to="/">
-                <a onClick={() => setValue(1)}>
-                  {value === 1 ? (
+                <a>
+                  {myRoute === "/" ? (
                     <svg className="inline-block mb-1 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                       <title>Home</title>
                       <path d="M416 174.74V48h-80v58.45L256 32 0 272h64v208h144V320h96v160h144V272h64l-96-97.26z" />
@@ -68,14 +80,19 @@ const BottomNavigationBar = () => {
                       />
                     </svg>
                   )}
-                  <span class={value === 1 ? "tab tab-home block text-xs font-semiBold uppercase" : "tab tab-home block text-xs uppercase"}>Home</span>
+                  <span class={myRoute === "/" ? "tab tab-home block text-xs font-semiBold uppercase" : "tab tab-home block text-xs uppercase"}>Home</span>
                 </a>
               </Link>
             </button>
-            <button class="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center pt-2 pb-1">
+            <button
+              onClick={() => (myRoute !== "/search" ? setRoute("/search") : null)}
+              class="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center pt-2 pb-1"
+            >
               <Link to="/search">
-                <a onClick={() => setValue(2)}>
-                  {value === 2 ? (
+                <a
+                //  onClick={() => setValue(2)}
+                >
+                  {myRoute === "/search" ? (
                     <svg className="inline-block mb-1 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                       <title>Search</title>
                       <path d="M456.69 421.39L362.6 327.3a173.81 173.81 0 0034.84-104.58C397.44 126.38 319.06 48 222.72 48S48 126.38 48 222.72s78.38 174.72 174.72 174.72A173.81 173.81 0 00327.3 362.6l94.09 94.09a25 25 0 0035.3-35.3zM97.92 222.72a124.8 124.8 0 11124.8 124.8 124.95 124.95 0 01-124.8-124.8z" />
@@ -93,14 +110,19 @@ const BottomNavigationBar = () => {
                       <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448" />
                     </svg>
                   )}
-                  <span className={value === 2 ? "tab tab-home block text-xs font-semiBold uppercase" : "tab tab-home block text-xs uppercase"}>Search</span>
+                  <span className={myRoute === "/search" ? "tab tab-home block text-xs font-semiBold uppercase" : "tab tab-home block text-xs uppercase"}>
+                    Search
+                  </span>
                 </a>
               </Link>
             </button>
-            <button className="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center pt-2 pb-1">
+            <button
+              onClick={() => (myRoute !== "/wishlist" ? setRoute("/wishlist") : null)}
+              className="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center pt-2 pb-1"
+            >
               <Link to="/wishlist">
-                <a onClick={() => setValue(3)}>
-                  {value === 3 ? (
+                <a>
+                  {myRoute === "/wishlist" ? (
                     <svg className="inline-block mb-1 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                       <title>Heart</title>
                       <path d="M256 448a32 32 0 01-18-5.57c-78.59-53.35-112.62-89.93-131.39-112.8-40-48.75-59.15-98.8-58.61-153C48.63 114.52 98.46 64 159.08 64c44.08 0 74.61 24.83 92.39 45.51a6 6 0 009.06 0C278.31 88.81 308.84 64 352.92 64c60.62 0 110.45 50.52 111.08 112.64.54 54.21-18.63 104.26-58.61 153-18.77 22.87-52.8 59.45-131.39 112.8a32 32 0 01-18 5.56z" />
@@ -118,14 +140,19 @@ const BottomNavigationBar = () => {
                       />
                     </svg>
                   )}
-                  <span className={value === 3 ? "tab tab-home block text-xs font-semiBold uppercase" : "tab tab-home block text-xs uppercase"}>WishList</span>
+                  <span className={myRoute === "/wishlist" ? "tab tab-home block text-xs font-semiBold uppercase" : "tab tab-home block text-xs uppercase"}>
+                    WishList
+                  </span>
                 </a>
               </Link>
             </button>
-            <button className="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center pt-2 pb-1">
+            <button
+              onClick={() => (myRoute !== "/cart" ? setRoute("/cart") : null)}
+              className="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center pt-2 pb-1"
+            >
               <Link to="cart">
                 <a onClick={() => setValue(4)}>
-                  {value === 4 ? (
+                  {myRoute === "/cart" ? (
                     <svg className="inline-block mb-1 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                       <title>Bag</title>
                       <path d="M454.65 169.4A31.82 31.82 0 00432 160h-64v-16a112 112 0 00-224 0v16H80a32 32 0 00-32 32v216c0 39 33 72 72 72h272a72.22 72.22 0 0050.48-20.55 69.48 69.48 0 0021.52-50.2V192a31.75 31.75 0 00-9.35-22.6zM176 144a80 80 0 01160 0v16H176z" />
@@ -143,7 +170,9 @@ const BottomNavigationBar = () => {
                       />
                     </svg>
                   )}
-                  <span className={value === 4 ? "tab tab-home block text-xs font-semiBold uppercase" : "tab tab-home block text-xs uppercase"}>Cart</span>
+                  <span className={myRoute === "/cart" ? "tab tab-home block text-xs font-semiBold uppercase" : "tab tab-home block text-xs uppercase"}>
+                    Cart
+                  </span>
                 </a>
               </Link>
             </button>
@@ -154,4 +183,12 @@ const BottomNavigationBar = () => {
   );
 };
 
-export default BottomNavigationBar;
+const mapStateToProps = (state) => ({
+  myRoute: state.shop.myRoute,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setRoute: (route) => dispatch(setRoute(route)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BottomNavigationBar);

@@ -6,8 +6,9 @@ class MyDetailsPage extends Component {
     super(props);
 
     this.state = {
+      firstName: "",
+      lastName: "",
       email: "",
-      password: "",
       dateOfBirth: {
         date: "",
         month: "",
@@ -17,37 +18,51 @@ class MyDetailsPage extends Component {
     };
   }
 
-  handleOnChange = () => {};
+  handleOnChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
   handleOnSubmit = () => {};
 
-  generateYearOptions = () => {
+  generateYearOptions = (year) => {
     const arr = [];
 
     const startYear = 1900;
     const endYear = 2005;
 
     for (let i = endYear; i >= startYear; i--) {
-      arr.push(<option value={i}>{i}</option>);
+      arr.push(
+        <option selected={i === year} value={i}>
+          {i}
+        </option>
+      );
     }
 
     return arr;
   };
 
-  generateMonthOptions = () => {
+  generateMonthOptions = (month) => {
     let array = [];
     let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     for (let i = 0; i < monthNames.length; i++) {
-      array.push(<option value={i}>{monthNames[i]}</option>);
+      array.push(
+        <option selected={i === month} value={i}>
+          {monthNames[i]}
+        </option>
+      );
     }
     return array;
   };
 
-  generateDateOptions = () => {
+  generateDateOptions = (date) => {
     let array = [];
 
     for (let i = 1; i <= 31; i++) {
-      array.push(<option value={i}>{i}</option>);
+      array.push(
+        <option selected={i === date} value={i}>
+          {i}
+        </option>
+      );
     }
 
     return array;
@@ -55,7 +70,11 @@ class MyDetailsPage extends Component {
 
   render() {
     const { userProfile } = this.props;
-    console.log("zozo", this.props);
+    console.log("zozo", this.state);
+    console.log("zozo-props", this.props);
+
+    let date = new Date(userProfile.dateOfBirth);
+    console.log("zozo-date", date);
     return (
       <div className="mt-16 px-3 xl:px-0 lg:px-0 md:px-0 sm:px-0">
         <form onSubmit={this.handleOnSubmit} action="">
@@ -99,47 +118,44 @@ class MyDetailsPage extends Component {
                 <div className="w-full">
                   <select
                     required={true}
-                    // onChange={(e) =>
-                    //   this.setState({...this.state.dateOfBirth, date})
-
-                    //   setUserDetails({ ...userDetails, dateOfBirth: { ...userDetails.dateOfBirth, date: e.target.value } })
-                    // }
+                    onChange={(e) => this.setState({ ...this.state, dateOfBirth: { ...this.state.dateOfBirth, date: e.target.value } })}
                     className="w-full py-2 border border-black bg-white outline-none"
                     name=""
                     id=""
                   >
                     <option selected disabled>
-                      DD
+                      Day:
                     </option>
-                    {this.generateDateOptions()}
+                    {this.generateDateOptions(date.getDate())}
                   </select>
                 </div>
                 <div className="w-full">
                   <select
                     required
-                    // onChange={(e) => setUserDetails({ ...userDetails, dateOfBirth: { ...userDetails.dateOfBirth, month: e.target.value } })}
+                    onChange={(e) => this.setState({ ...this.state, dateOfBirth: { ...this.state.dateOfBirth, month: e.target.value } })}
                     className="w-full py-2 border border-black bg-white outline-none"
                     name=""
                     id=""
                   >
                     <option selected disabled>
-                      MM
+                      Month:
+                      {/* {date.toLocaleString("en-us", { month: "long" })} */}
                     </option>
-                    {this.generateMonthOptions()}
+                    {this.generateMonthOptions(date.getMonth())}
                   </select>
                 </div>
                 <div className="w-full">
                   <select
                     required
-                    // onChange={(e) => setUserDetails({ ...userDetails, dateOfBirth: { ...userDetails.dateOfBirth, year: e.target.value } })}
+                    onChange={(e) => this.setState({ ...this.state, dateOfBirth: { ...this.state.dateOfBirth, year: e.target.value } })}
                     className="w-full py-2 border border-black bg-white outline-none"
                     name=""
                     id=""
                   >
                     <option selected disabled>
-                      YYYY
+                      Year:
                     </option>
-                    {this.generateYearOptions()}
+                    {this.generateYearOptions(date.getFullYear())}
                   </select>
                 </div>
               </div>
@@ -148,30 +164,25 @@ class MyDetailsPage extends Component {
             <div>
               <label className="uppercase font-semiBold text-gray-400  text-sm">MOSTLY INTERESTED IN:</label>
               <div className="flex items-center space-x-10 mt-1">
-                <div
-                  // onClick={() => setUserDetails({ ...userDetails, mostlyInterestedIn: "Womenwear" })}
-
-                  className="flex items-center space-x-3 cursor-pointer"
-                >
+                <div onClick={() => this.setState({ mostlyInterestedIn: "Womenwear" })} className="flex items-center space-x-3 cursor-pointer">
                   <input
                     required
                     value="Womenwear"
-                    // onChange={(e) => setUserDetails({ ...userDetails, mostlyInterestedIn: e.target.value })}
-                    // checked={userDetails.mostlyInterestedIn === "Womenwear"}
+                    defaultChecked={userProfile.mostlyInterested === "Womenwear"}
+                    onChange={(e) => this.setState({ mostlyInterestedIn: e.target.value })}
+                    checked={this.state.mostlyInterestedIn === "Womenwear"}
                     className="w-5 h-5 cursor-pointer"
                     type="radio"
                   />
                   <span className="cursor-pointer">Womenswear</span>
                 </div>
-                <div
-                  //  onClick={() => setUserDetails({ ...userDetails, mostlyInterestedIn: "Menswear" })}
-                  className="flex items-center space-x-3 cursor-pointer"
-                >
+                <div onClick={() => this.setState({ mostlyInterestedIn: "Menswear" })} className="flex items-center space-x-3 cursor-pointer">
                   <input
                     required
                     value="Menswear"
-                    // onChange={(e) => setUserDetails({ ...userDetails, mostlyInterestedIn: e.target.value })}
-                    // checked={userDetails.mostlyInterestedIn === "Menswear"}
+                    defaultChecked={userProfile.mostlyInterested === "Menswear"}
+                    onChange={(e) => this.setState({ mostlyInterestedIn: e.target.value })}
+                    // checked={this.state.mostlyInterestedIn === "Menswear"}
                     className="w-5 h-5 cursor-pointer"
                     type="radio"
                   />

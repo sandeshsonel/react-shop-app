@@ -11,6 +11,7 @@ import HeaderOption from "src/components/HeaderOption/HeaderOption";
 
 const HomePage = ({ getProductStart, products, setGetProductQuery, isLoading }) => {
   const [query, setQuery] = useState({});
+  const [productSort, setProductSort] = useState("freshness");
   console.log("popo-products", products);
 
   useEffect(() => {
@@ -20,32 +21,6 @@ const HomePage = ({ getProductStart, products, setGetProductQuery, isLoading }) 
     console.log("vevo", query);
   }, [query]);
 
-  // if (products.length === 0) {
-  //   return (
-  //     <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
-  //       <Loader />
-  //     </div>
-  //   );
-  // }
-
-  const loadingContent = () => {
-    if (isLoading) {
-      return (
-        <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
-          <Loader />
-        </div>
-      );
-    } else if (products.length === 0) {
-      return (
-        <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
-          <h1>No result found..</h1>
-        </div>
-      );
-    }
-  };
-
-  console.log("xolo", products);
-  console.log("momo-parent", query);
   return (
     <div>
       <div className="mt-16">
@@ -60,7 +35,7 @@ const HomePage = ({ getProductStart, products, setGetProductQuery, isLoading }) 
             <h1 className="">😌No result found😌</h1>
           </div>
         ) : (
-          <div className="px-3 xl:px-0 md:px-0 mt-3">
+          <div className="px-3 xl:px-0 md:px-0 lg:px-0 mt-3">
             <div className="text-center font-semiBold text-gray-500 text-sm">
               <span>{products.length} styles found</span>
             </div>
@@ -68,10 +43,22 @@ const HomePage = ({ getProductStart, products, setGetProductQuery, isLoading }) 
             <div className="fixed bottom-0 w-full max-w-2xl py-2 bg-white shadow-md">
               <div className="flex items-center space-x-3">
                 <div className="w-full">
-                  <select disabled className="w-full rounded-none cursor-pointer bg-white py-3 border-2 font-semiBold uppercase border-black" name="" id="">
-                    <option value="">Sort</option>
-                    <option value="">Our favourites</option>
-                    <option value="freshness">What's new</option>
+                  <select
+                    disabled
+                    onChange={(e) => setProductSort(e.target.value)}
+                    className="w-full rounded-none cursor-pointer bg-white py-3 border-2 font-semiBold uppercase border-black"
+                    name=""
+                    id=""
+                  >
+                    <option selected disabled value="">
+                      Sort
+                    </option>
+                    <option disabled value="">
+                      Our favourites
+                    </option>
+                    <option disabled value="freshness">
+                      What's new
+                    </option>
                     <option value="pricedesc">Price high to low</option>
                     <option value="priceasc">Price low to high</option>
                   </select>

@@ -46,6 +46,7 @@ class SignInForm extends Component {
                 <label className="uppercase font-semiBold text-gray-400 text-sm">Email Address:</label>
                 <input
                   name="email"
+                  autoFocus
                   required
                   value={this.state.email}
                   onChange={this.handleOnChange}

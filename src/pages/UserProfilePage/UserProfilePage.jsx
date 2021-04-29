@@ -12,14 +12,13 @@ import addressIcon from "../../assets/images/home.svg";
 import paymentIcon from "../../assets/images/payment.svg";
 
 const UserProfilePage = (props) => {
-  console.log("xolo", props);
+  console.log("popo-props", props);
   const { signOutUser, fullName, isLogin } = props;
 
   const handleSignOutUser = () => {
     signOutUser();
-    if (!isLogin) {
-      props.history.push("/");
-    }
+
+    props.history.push("/");
   };
 
   return (

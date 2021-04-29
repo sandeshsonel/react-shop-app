@@ -8,7 +8,7 @@ const userProfileReducer = (state = initial_state, action) => {
     case UserProfileActionTypes.SET_USER_PROFILE_DATA:
       return action.payload;
     case "USER_SIGN_OUT_SUCCESS":
-      return initial_state;
+      return {};
     default:
       return state;
   }

@@ -7,14 +7,16 @@ import { getCartItemStart } from "../../app/actions";
 import Loader from "src/components/Loader/Loader";
 
 const CartPage = (props) => {
-  const { cartItems, getCartItemStart, isLoading } = props;
+  const { cartItems, getCartItemStart, isLoading, isLogin } = props;
   console.log("momo", isLoading);
 
   useEffect(() => {
-    getCartItemStart();
+    if (isLogin) {
+      getCartItemStart();
+    }
   }, []);
 
-  if (isLoading) {
+  if (isLoading && isLogin) {
     return (
       <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
         <Loader />
@@ -51,7 +53,6 @@ const CartPage = (props) => {
                   <a className="underline text-sm">Continue Shopping</a>
                 </Link>
               </div>
-              <button onClick={() => getCartItemStart()}>Get Cart Items</button>
             </div>
           </div>
         </div>
@@ -65,6 +66,7 @@ const CartPage = (props) => {
 const mapStateToProps = (state) => ({
   cartItems: state.cart.cart,
   isLoading: state.cart.isLoading,
+  isLogin: state.auth.isLogin,
 });
 
 const mapDispatchToProps = (dispatch) => ({

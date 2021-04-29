@@ -95,8 +95,9 @@ export const deleteApi = async (url, data) => {
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
       authorization: "bearer " + token,
+      params: data,
     },
-    data,
+    // data,
   };
   try {
     let axiosResult = await axios.delete(url, deleteObj);
@@ -108,16 +109,12 @@ export const deleteApi = async (url, data) => {
 
 //------------------CART_SECTION---------------------//
 export const getCartItemsApi = async () => {
-  const authState = store.default.store.getState().auth;
-  console.log("token", authState.isLogin);
-  const userData = localStorage.getItem("userData");
-  console.log("token-local", JSON.parse(userData));
+  const { token } = store.default.store.getState().auth;
+
   const newConfig = {
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
-      authorization:
-        "Bearer " +
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODI0OWU1YWM5YmM1MGJkODEyYmU2ZSIsImlhdCI6MTYxOTM0OTIzNywiZXhwIjoxNjI3MTI1MjM3fQ.l8JmIC4A7ka11TQQNu4E2HZxj66WdtEoKkQHS5P8x3s",
+      Authorization: "Bearer " + token,
     },
   };
   try {
@@ -129,8 +126,17 @@ export const getCartItemsApi = async () => {
 };
 
 export const addCartItemApi = async (data) => {
+  console.log("bobo-data", data);
+  const { token } = store.default.store.getState().auth;
+  console.log("bobo", token);
+  const postObj = {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      Authorization: "Bearer " + token,
+    },
+  };
   try {
-    let axiosResult = await axios.post(cartUrl, data);
+    let axiosResult = await axios.post(cartUrl, data, postObj);
     console.log("momo-axios", axiosResult);
     return axiosResult && axiosResult.data;
   } catch (error) {
@@ -140,23 +146,20 @@ export const addCartItemApi = async (data) => {
 
 export const deleteCartItemApi = async (data) => {
   console.log("apiFetch", data);
-  const newConfig = {
+  const { token } = store.default.store.getState().auth;
+  console.log("bobo", token);
+  const deleteObj = {
     headers: {
-      Authorization: "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwO…TIxfQ.yuKgRNDdmqARsJhh5C51nF6YTIClVYRfahYWFYIrC6E",
-      params: data,
+      "Content-Type": "application/json;charset=UTF-8",
+      Authorization: "Bearer " + token,
     },
+    data,
   };
   try {
-    let axiosResult = await axios.delete("http://localhost:8000/api/v1/cart", {
-      headers: {
-        Authorization: "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwO…TIxfQ.yuKgRNDdmqARsJhh5C51nF6YTIClVYRfahYWFYIrC6E",
-      },
-      data: {
-        source: data,
-      },
-    });
+    let axiosResult = await axios.delete(cartUrl, deleteObj);
     return axiosResult && axiosResult.data;
   } catch (error) {
+    console.log("xoxo-error", error);
     throw error;
   }
 };

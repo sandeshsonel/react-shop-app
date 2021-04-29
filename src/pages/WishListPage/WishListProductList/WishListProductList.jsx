@@ -1,12 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import { removeSavedItem, addItemToCart } from "../../../app/actions";
+import { removeSavedItem, addItemToCart, setAddCartItemStart, setRemoveCartItemStart } from "../../../app/actions";
 
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 
 const WishListProductList = (props) => {
-  const { savedItems, removeSavedItem, addItemToCart } = props;
+  const { savedItems, removeSavedItem, addItemToCart, isLogin } = props;
 
   const [snackbar, setSnackbar] = React.useState({
     open: false,
@@ -33,8 +33,13 @@ const WishListProductList = (props) => {
     //     setSnackbar({ ...snackbar, open: false, message: "", warning: "" });
     //   }, 2000);
     // } else {
-    addItemToCart(item);
-    removeSavedItem(item._id);
+    if (isLogin) {
+      setAddCartItemStart(item);
+      setRemoveCartItemStart(item._id);
+    } else {
+      addItemToCart(item);
+      removeSavedItem(item._id);
+    }
     // }
   };
 
@@ -96,12 +101,16 @@ const WishListProductList = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  savedItems: state.savedItem.items,
+  savedItems: state.wishlist.items,
+  isLogin: state.auth.isLogin,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   addItemToCart: (item) => dispatch(addItemToCart(item)),
   removeSavedItem: (id) => dispatch(removeSavedItem(id)),
+  // api actions
+  setAddCartItemStart: (item) => dispatch(setAddCartItemStart(item)),
+  setRemoveCartItemStart: (id) => dispatch(setRemoveCartItemStart(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WishListProductList);

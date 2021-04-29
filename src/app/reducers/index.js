@@ -6,7 +6,7 @@ import shopReducer from "../reducers/shopReducer";
 import authReducer from "../reducers/auth";
 import userProfileReducer from "../reducers/userProfile";
 import cartReducer from "../reducers/Cart";
-import savedItemReducer from "../reducers/SavedItems";
+import wishlistReducer from "../reducers/wishlistReducer";
 import productReducer from "../reducers/products";
 
 const persistConfig = {
@@ -20,7 +20,7 @@ const persistConfig = {
 
 const reducers = combineReducers({
   cart: cartReducer,
-  savedItem: savedItemReducer,
+  wishlist: wishlistReducer,
   auth: authReducer,
   userProfile: userProfileReducer,
   products: productReducer,

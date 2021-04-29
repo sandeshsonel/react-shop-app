@@ -12,7 +12,7 @@ import axios from "axios";
 import productDummy from "../../../assets/data/products";
 
 // redux
-import { addItemToCart, addSavedItem, removeItemToCart } from "../../../app/actions";
+import { addItemToCart, addSavedItem, removeItemToCart, setAddCartItemStart } from "../../../app/actions";
 import Loader from "src/components/Loader/Loader";
 
 const settings = {
@@ -28,7 +28,7 @@ const settings = {
 
 const ProductDetails = (props) => {
   console.log(props);
-  const { match, addItemToCart, addSavedItem, cart, savedItems, isLogin, removeItemToCart } = props;
+  const { match, addItemToCart, addSavedItem, cart, savedItems, isLogin, removeItemToCart, setAddCartItemStart } = props;
   const [product, setProducts] = useState({});
   const [selectSize, setSelectSize] = useState(null);
   const [snackbar, setSnackbar] = React.useState({
@@ -79,12 +79,16 @@ const ProductDetails = (props) => {
         setSnackbar({ ...snackbar, open: false, message: "", warning: "" });
       }, 2000);
     } else {
-      addItemToCart({ ...product, selectSize: selectSize });
+      if (isLogin) {
+        setAddCartItemStart(product);
+      } else {
+        addItemToCart({ ...product, selectSize: selectSize });
+      }
       setSnackbar({ ...snackbar, open: true, message: "Add Item To Cart", warning: "success" });
       setTimeout(() => {
         setSnackbar({ ...snackbar, open: false, message: "", warning: "" });
       }, 2000);
-      props.history.push("/cart");
+      // props.history.push("/cart");
     }
   };
 
@@ -191,11 +195,13 @@ const ProductDetails = (props) => {
           </div>
         </div>
 
-        <div>
-          <span className="font-semiBold uppercase text-sm text-gray-500">Product Details</span>
-          <p className="text-gray-500 mt-1">
-            Black and grey checked casual shirt, has a spread collar, long roll-up sleeves, button placket, curved hem, and 1 patch pocket
-          </p>
+        <div className="space-y-5 mt-4">
+          {product.productDetails.map((prod) => (
+            <div>
+              <span className="font-semiBold uppercase text-base text-gray-500">{prod.title}</span>
+              <ul className="mt-2">{prod.description}</ul>
+            </div>
+          ))}
         </div>
       </div>
       <footer className="px-3 py-2 bg-white xl:px-0 lg:px-0 md:px-0 sm:px-0 bottom-0 sticky w-full mt-10">
@@ -214,6 +220,7 @@ const ProductDetails = (props) => {
             <button
               type="submit"
               onClick={() => handleAddItemToBag(product)}
+              // onClick={() => setAddCartItemStart(product)}
               className="w-full bg-black uppercase text-sm xl:text-base lg:text-base md:text-base sm:text-base py-3 font-semiBold outline-none text-white"
             >
               <span>Add To Bag</span>
@@ -236,13 +243,14 @@ const ProductDetails = (props) => {
 
 const mapStateToProps = (state) => ({
   cart: state.cart.cart,
-  savedItems: state.savedItem.items,
+  savedItems: state.wishlist.items,
   isLogin: state.auth.isLogin,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   addItemToCart: (item) => dispatch(addItemToCart(item)),
   addSavedItem: (item) => dispatch(addSavedItem(item)),
+  setAddCartItemStart: (addItem) => dispatch(setAddCartItemStart(addItem)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);

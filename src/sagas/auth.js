@@ -1,3 +1,4 @@
+import storage from "redux-persist/lib/storage";
 import AuthActionTypes from "../app/types/auth.types";
 const { all, call, fork, put, takeEvery } = require("redux-saga/effects");
 const { signUpUser, signInUser } = require("../utils/apiFetch");
@@ -68,6 +69,7 @@ function* signUpUserFun({ payload }) {
 function* signOut() {
   try {
     localStorage.removeItem("userData");
+    storage.removeItem("persist:root");
     console.warn(localStorage.getItem("userData"));
     yield put(userSignOutSuccess());
   } catch (error) {

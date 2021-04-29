@@ -7,12 +7,12 @@ import Drawer from "@material-ui/core/Drawer";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 
-import { removeSavedItem, addItemToCart, removeItemToCart, addSavedItem, setRemoveCartItemStart } from "../../../app/actions";
+import { removeSavedItem, addItemToCart, removeItemToCart, addSavedItem, setRemoveCartItemStart, setAddCartItemStart } from "../../../app/actions";
 import { SignalCellularNullTwoTone } from "@material-ui/icons";
 
 const CartProductList = (props) => {
   console.log(props);
-  const { savedItems, removeSavedItem, cartItems, removeItemToCart, addSavedItem, setRemoveCartItemStart } = props;
+  const { savedItems, removeSavedItem, cartItems, removeItemToCart, addSavedItem, setRemoveCartItemStart, isLogin, setAddCartItemStart } = props;
   const [state, setState] = React.useState({
     bottom: false,
   });
@@ -49,8 +49,13 @@ const CartProductList = (props) => {
       }, 2000);
       setState({ bottom: false });
     } else {
-      addSavedItem(moreInfoDetail);
-      removeItemToCart(moreInfoDetail._id);
+      if (isLogin) {
+        setAddCartItemStart(moreInfoDetail);
+        setRemoveCartItemStart(moreInfoDetail._id);
+      } else {
+        addSavedItem(moreInfoDetail);
+        removeItemToCart(moreInfoDetail._id);
+      }
       // setSnackbar({ ...snackbar, open: true, message: "Item add in wishlist", warning: "error" });
       // setTimeout(() => {
       //   setSnackbar({ ...snackbar, open: false, message: "", warning: "" });
@@ -199,8 +204,7 @@ const CartProductList = (props) => {
               <li
                 onClick={() => {
                   setState({ bottom: false });
-                  setRemoveCartItemStart(moreInfoDetail._id);
-                  // removeItemToCart(moreInfoDetail._id);
+                  isLogin ? setRemoveCartItemStart(moreInfoDetail._id) : removeItemToCart(moreInfoDetail._id);
                 }}
                 className="py-4 text-red-500 cursor-pointer"
               >
@@ -223,7 +227,8 @@ const CartProductList = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  savedItems: state.savedItem.items,
+  savedItems: state.wishlist.items,
+  isLogin: state.auth.isLogin,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -232,6 +237,7 @@ const mapDispatchToProps = (dispatch) => ({
   removeItemToCart: (itemId) => dispatch(removeItemToCart(itemId)),
   addSavedItem: (item) => dispatch(addSavedItem(item)),
   // online
+  setAddCartItemStart: (item) => dispatch(setAddCartItemStart(item)),
   setRemoveCartItemStart: (itemId) => dispatch(setRemoveCartItemStart(itemId)),
 });
 

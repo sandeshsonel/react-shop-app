@@ -203,7 +203,7 @@ const SignUpForm = ({ signUpUser }) => {
                     value="Womenwear"
                     onChange={(e) => setUserDetails({ ...userDetails, mostlyInterestedIn: e.target.value })}
                     checked={userDetails.mostlyInterestedIn === "Womenwear"}
-                    className="w-5 h-5 cursor-pointer"
+                    className="w-5 h-5 cursor-pointer focus:ring-indigo-500 text-indigo-600 border-gray-300"
                     type="radio"
                   />
                   <span className="cursor-pointer">Womenswear</span>
@@ -235,7 +235,7 @@ const SignUpForm = ({ signUpUser }) => {
             </div> */}
           </div>
           <div className="mt-8 bottom-0 py-3 sticky w-full">
-            <button type="submit" className="w-full uppercase font-semibold bg-black shadow-md text-white py-3 ">
+            <button type="submit" className="w-full uppercase font-semiBold bg-black shadow-md text-white py-3 ">
               Join Shops
             </button>
           </div>

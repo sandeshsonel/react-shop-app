@@ -39,14 +39,14 @@ const SignInAndSignUpPage = ({ signUpUser, handleClose }) => {
             </div>
           </div>
 
-          <div className="flex items-center w-full justify-between space-x-2">
+          <div className="flex items-center w-full justify-between space-x-2 bg-gray-100">
             <div className="w-full">
               <button
                 onClick={() => setValue(1)}
                 className={
                   value === 1
                     ? "w-full border-b-2 focus:outline-none py-3 uppercase font-semiBold outline-none text-sm border-black"
-                    : "w-full outline-none focus:outline-none border-none py-3 uppercase text-gray-500 font-semibold text-sm"
+                    : "w-full outline-none focus:outline-none border-none py-3 font-semiBold uppercase text-gray-500 font-semibold text-sm"
                 }
               >
                 New To Shops?
@@ -58,8 +58,8 @@ const SignInAndSignUpPage = ({ signUpUser, handleClose }) => {
                 onClick={() => setValue(2)}
                 className={
                   value === 2
-                    ? "w-full border-b-2 py-3 uppercase font-semiBold text-sm border-black"
-                    : "w-full outline-none py-3 uppercase font-semibold text-sm text-gray-500"
+                    ? "w-full border-b-2 py-3 uppercase font-semiBold focus:outline-none outline-none text-sm border-black"
+                    : "w-full outline-none py-3 uppercase font-semiBold focus:outline-none text-sm text-gray-500"
                 }
               >
                 Already Registered?

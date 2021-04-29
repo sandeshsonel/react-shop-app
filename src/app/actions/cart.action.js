@@ -47,6 +47,8 @@ export const removeCartItemFailed = (errorMsg) => ({
   payload: errorMsg,
 });
 
+//-------------------------------
+
 export const addItemToCart = (item) => ({
   type: CartActionType.ADD_ITEM_TO_CART,
   payload: item,

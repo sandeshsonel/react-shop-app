@@ -37,7 +37,7 @@ const WishListPage = ({ isLogin, wishListItems }) => {
 };
 
 const mapStateToProps = (state) => ({
-  wishListItems: state.savedItem.items,
+  wishListItems: state.wishlist.items,
   isLogin: state.auth.isLogin,
 });
 

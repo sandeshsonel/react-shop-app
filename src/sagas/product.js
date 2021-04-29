@@ -32,7 +32,8 @@ function* setGetProductQuery({ payload }) {
     } else if (Number(products.status) === 0) {
       yield put(getProductFailure(products.message));
     } else {
-      alert("Error getting data from server");
+      console.log("error-Error getting data from server");
+      // alert("Error getting data from server");
     }
   } catch (error) {
     alert(`product.js line-35 ${error}`);

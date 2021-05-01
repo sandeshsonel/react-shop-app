@@ -38,41 +38,39 @@ class SignInForm extends Component {
   render() {
     console.log("xoxo", this.state);
     return (
-      <div>
-        <div className="px-3">
-          <form onSubmit={this.handleOnSubmit} action="">
-            <div className="space-y-3">
-              <div>
-                <label className="uppercase font-semiBold text-gray-400 text-sm">Email Address:</label>
-                <input
-                  name="email"
-                  autoFocus
-                  required
-                  value={this.state.email}
-                  onChange={this.handleOnChange}
-                  type="email"
-                  className="border border-black w-full py-2 px-2 mt-1 outline-none"
-                />
-              </div>
-              <div>
-                <label className="uppercase font-semiBold text-gray-400 text-sm">Password:</label>
-                <input
-                  name="password"
-                  required
-                  value={this.state.password}
-                  onChange={this.handleOnChange}
-                  type="password"
-                  className="border border-black w-full py-2 px-2 mt-1 outline-none"
-                />
-              </div>
+      <div className="mt-2 px-2 xl:px-0 lg:px-0 h-screen">
+        <form onSubmit={this.handleOnSubmit} action="">
+          <div className="space-y-3">
+            <div>
+              <label className="uppercase font-semiBold text-gray-400 text-sm">Email Address:</label>
+              <input
+                name="email"
+                autoFocus
+                required
+                value={this.state.email}
+                onChange={this.handleOnChange}
+                type="email"
+                className="border border-black w-full py-2 px-2 mt-1 outline-none"
+              />
             </div>
-            <div className="mt-10">
-              <button type="submit" className="w-full uppercase bg-black shadow-md text-white py-3 font-semiBold">
-                Sign In
-              </button>
+            <div>
+              <label className="uppercase font-semiBold text-gray-400 text-sm">Password:</label>
+              <input
+                name="password"
+                required
+                value={this.state.password}
+                onChange={this.handleOnChange}
+                type="password"
+                className="border border-black w-full py-2 px-2 mt-1 outline-none"
+              />
             </div>
-          </form>
-        </div>
+          </div>
+          <div className="mt-10">
+            <button type="submit" className="w-full uppercase bg-black shadow-md text-white py-3 font-semiBold">
+              Sign In
+            </button>
+          </div>
+        </form>
       </div>
     );
   }

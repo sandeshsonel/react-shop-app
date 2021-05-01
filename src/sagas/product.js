@@ -1,11 +1,19 @@
 import ProductActionTypes from "../app/types/products.types";
 const { all, call, fork, put, takeEvery } = require("redux-saga/effects");
-const { getProductsApi, setGetProductQueryApi } = require("../utils/apiFetch");
+const { getProductsApi, setGetProductQueryApi, setGetProductDetailsApi } = require("../utils/apiFetch");
 const { getProductSuccess, getProductFailure } = require("../app/actions/product.action");
 
 const setProductQueryRequest = async (payload) => {
   console.log("momo", payload);
   return await setGetProductQueryApi(payload)
+    .then((data) => {
+      return data;
+    })
+    .catch((err) => err);
+};
+
+const setProductDetailsRequest = async (payload) => {
+  return await setGetProductDetailsApi(payload)
     .then((data) => {
       return data;
     })
@@ -25,7 +33,7 @@ function* setGetProductQuery({ payload }) {
   console.log("momo-25", payload);
   try {
     const products = yield call(setProductQueryRequest, payload);
-    console.log("momo-products", products);
+
     if (Number(products.status) === 1) {
       console.log("xoxoxox", products.data, products.status);
       yield put(getProductSuccess(products.data.products));
@@ -58,6 +66,14 @@ function* getProducts2({ query }) {
   }
 }
 
+function* setGetProductDetails2({ payload }) {
+  console.log("aaa", payload);
+  try {
+    const productDetails = yield call(setProductDetailsRequest, payload);
+    console.log("momo", productDetails);
+  } catch (error) {}
+}
+
 export function* getProducts() {
   yield takeEvery(ProductActionTypes.GET_PRODUCTS_START, getProducts2);
 }
@@ -66,6 +82,10 @@ export function* setGetProduct() {
   yield takeEvery(ProductActionTypes.SET_GET_PRODUCT_QUERY, setGetProductQuery);
 }
 
+export function* setGetProductDetails() {
+  yield takeEvery(ProductActionTypes.SET_GET_PRODUCT_DETAILS_START, setGetProductDetails2);
+}
+
 export default function* rootSaga() {
-  yield all([fork(getProducts), fork(setGetProduct)]);
+  yield all([fork(getProducts), fork(setGetProduct), setGetProductDetails()]);
 }

@@ -1,21 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const MyOrderPage = () => {
+const MyOrderPage = (props) => {
+  console.log("bobo-props", props);
   return (
     <div>
-      <div className="header mt-14 flex items-center">
-        <div>
-          <div>
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5" viewBox="0 0 512 512">
-              <title>Chevron Back</title>
-              <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M328 112L184 256l144 144" />
+      <div className="header fixed mt-14 py-2 px-2 flex items-center">
+        <Link to="/profile">
+          <button className="outline-none focus:outline-none px-1 py-1 bg-gray-100 rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-6" viewBox="0 0 512 512">
+              <path
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="48"
+                d="M244 400L100 256l144-144M120 256h292"
+              />
             </svg>
-          </div>
-        </div>
-        <div className="text-center">
-          <span className="text-center justify-center">My Orders</span>
-        </div>
+          </button>
+        </Link>
       </div>
       <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} className="max-w-xs">
         <div className="flex flex-col flex-nowrap justify-between text-center">

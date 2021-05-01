@@ -1,6 +1,6 @@
 const axios = require("axios");
 const store = require("../store/index");
-const { signUpUrl, signInUrl, productsUrl, cartUrl, deleteCartItemUrl } = require("../config");
+const { signUpUrl, signInUrl, productsUrl, cartUrl, deleteCartItemUrl, productDetailsUrl } = require("../config");
 const axiosConfig = {
   headers: {
     "Content-Type": "application/json;charset=UTF-8",
@@ -48,6 +48,16 @@ export const setGetProductQueryApi = async (query) => {
   try {
     let axiosResult = await axios.get(productsUrl(query.gender, query.selectCatgory));
     console.log("momo-axios", axiosResult);
+    return axiosResult && axiosResult.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const setGetProductDetailsApi = async (productId) => {
+  console.log("aaa", productId);
+  try {
+    let axiosResult = await axios.get(productDetailsUrl(productId));
     return axiosResult && axiosResult.data;
   } catch (error) {
     throw error;

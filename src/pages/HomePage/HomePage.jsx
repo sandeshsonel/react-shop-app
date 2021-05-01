@@ -12,18 +12,34 @@ import HeaderOption from "src/components/HeaderOption/HeaderOption";
 const HomePage = ({ getProductStart, products, setGetProductQuery, isLoading }) => {
   const [query, setQuery] = useState({});
   const [productSort, setProductSort] = useState("freshness");
+  const [fetch, setFetch] = useState(true);
   console.log("popo-products", products);
 
   useEffect(() => {
     if (Object.keys(query).length !== 0) {
       setGetProductQuery(query);
     }
+    // const self = products;
+    // setTimeout(
+    //   (products) => {
+    //     console.log("oyo-setTim", products);
+    //     // if (pro.length === 0) {
+    //     //   console.log("oyo-oyo-oyo", pro.length);
+    //     //   setFetch(false);
+    //     // }
+    //   },
+
+    //   self
+    // );
     console.log("vevo", query);
   }, [query]);
 
+  console.log("oyo", fetch);
+  console.log("oyo-product-length", products.length);
+
   return (
     <div>
-      <div className="mt-16">
+      <div className="mt-1 h-screen">
         <HeaderOption setQuery={setQuery} />
 
         {isLoading ? (
@@ -35,7 +51,7 @@ const HomePage = ({ getProductStart, products, setGetProductQuery, isLoading }) 
             <h1 className="">😌No result found😌</h1>
           </div>
         ) : (
-          <div className="px-3 xl:px-0 md:px-0 lg:px-0 mt-3">
+          <div className="px-3 xl:px-0 md:px-0 lg:px-0 mt-32">
             <div className="text-center font-semiBold text-gray-500 text-sm">
               <span>{products.length} styles found</span>
             </div>

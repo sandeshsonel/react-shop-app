@@ -95,7 +95,7 @@ const UserProfilePage = (props) => {
               </Link>
             </li>
             <li>
-              <div className="flex items-center justify-between space-x-4 py-3 border-b-4 border-gray-200" href="">
+              <div className="flex items-center justify-between cursor-pointer space-x-4 py-3 border-b-4 hover:bg-gray-100 border-gray-200" href="">
                 <div className="flex items-center space-x-2">
                   <div>
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6" viewBox="0 0 512 512">

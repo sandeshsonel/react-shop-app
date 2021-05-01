@@ -12,7 +12,7 @@ import axios from "axios";
 import productDummy from "../../../assets/data/products";
 
 // redux
-import { addItemToCart, addSavedItem, removeItemToCart, setAddCartItemStart } from "../../../app/actions";
+import { addItemToCart, addSavedItem, removeItemToCart, setAddCartItemStart, setGetProductDetailsStart } from "../../../app/actions";
 import Loader from "src/components/Loader/Loader";
 
 const settings = {
@@ -46,15 +46,9 @@ const ProductDetails = (props) => {
 
   useEffect(() => {
     getProduct();
+    console.log("params", match);
+    // setGetProductDetailsStart(match.params.id);
   }, []);
-
-  if (Object.keys(product).length === 0) {
-    return (
-      <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
-        <Loader />
-      </div>
-    );
-  }
 
   const handleClick = (newState) => () => {
     setSnackbar({ open: true, ...newState });
@@ -138,16 +132,20 @@ const ProductDetails = (props) => {
     return array;
   };
 
+  if (Object.keys(product).length === 0) {
+    return (
+      <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
+        <Loader />
+      </div>
+    );
+  }
+
   console.log("xoxo", isLogin);
 
   return (
     <div className="pb-28">
+      <button onClick={() => setGetProductDetailsStart(match.params.id)}>Click</button>
       <div>
-        {/* <img
-          className="justify-center xl:w-80 mt-10"
-          src="https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/productimage/2019/7/27/110eefa8-e43b-4c42-85f7-83592dc9c9701564175877424-1.jpg"
-          alt=""
-        /> */}
         <div className="mt-10">
           <Slider {...settings}>
             <div>
@@ -251,6 +249,7 @@ const mapDispatchToProps = (dispatch) => ({
   addItemToCart: (item) => dispatch(addItemToCart(item)),
   addSavedItem: (item) => dispatch(addSavedItem(item)),
   setAddCartItemStart: (addItem) => dispatch(setAddCartItemStart(addItem)),
+  setGetProductDetailsStart: (productId) => dispatch(setGetProductDetailsStart(productId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);

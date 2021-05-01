@@ -13,7 +13,7 @@ const HeaderOption = ({ setQuery }) => {
   }, [gender, selectCatgory]);
 
   return (
-    <div className="flex sticky z-10 top-14 items-center space-x-3 px-3 lg:px-0 md:px-0 xl:px-0">
+    <div className="flex fixed w-full left-0 right-0 max-w-2xl m-auto z-10 top-16 items-center space-x-3 px-3 lg:px-0 md:px-0 xl:px-0">
       <div className="w-full">
         <select
           onChange={(e) => {

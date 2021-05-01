@@ -118,7 +118,7 @@ const Header = (props) => {
                 </Link>
               </div>
               <div className="">
-                <Link to={isLogin ? "/profile" : "/loginSign"}>
+                <Link to={true ? "/profile" : "/loginSign"}>
                   <div onClick={() => setValue(2)}>
                     {value === 2 ? (
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-6 fill-current text-white" viewBox="0 0 512 512">

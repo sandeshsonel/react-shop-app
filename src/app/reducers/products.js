@@ -7,7 +7,7 @@ const initialState = {
 };
 
 const productsReducers = (state = initialState, action) => {
-  console.log(action.type);
+  console.log("action.type", action.type);
   switch (action.type) {
     case ProductActionTypes.SET_GET_PRODUCT_QUERY:
       return {
@@ -26,6 +26,21 @@ const productsReducers = (state = initialState, action) => {
         ...state,
         isFetching: false,
         errorMessage: action.payload,
+      };
+    case ProductActionTypes.SET_GET_PRODUCT_DETAILS:
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case ProductActionTypes.SET_GET_PRODUCT_DETAILS_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+      };
+    case ProductActionTypes.SET_GET_PRODUCT_DETAILS_FAILED:
+      return {
+        ...state,
+        isFetching: false,
       };
     default:
       return state;

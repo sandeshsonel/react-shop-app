@@ -5,6 +5,7 @@ const initial_state = {
   isLogin: false,
   token: "",
   expireDate: "",
+  isLoading: false,
 };
 
 const authReducer = (state = initial_state, action) => {
@@ -17,17 +18,28 @@ const authReducer = (state = initial_state, action) => {
         ...state,
         isLogin: action.payload,
       };
-    case AuthActionTypes.SET_USER_DATA:
-      return {
-        ...state,
-        ...action.payload,
-      };
     case AuthActionTypes.USER_SIGN_OUT_SUCCESS:
       return {
         ...state,
         isLogin: false,
         token: "",
         expireDate: "",
+      };
+    case AuthActionTypes.SIGN_IN_USER:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case AuthActionTypes.SIGN_IN_USER_SUCCESS:
+      return {
+        ...state,
+        ...action.payload,
+        isLoading: false,
+      };
+    case AuthActionTypes.SIGN_IN_USER_FAILED:
+      return {
+        ...state,
+        isLoading: false,
       };
     default:
       return state;

@@ -82,7 +82,7 @@ const ProductDetails = (props) => {
       setTimeout(() => {
         setSnackbar({ ...snackbar, open: false, message: "", warning: "" });
       }, 2000);
-      // props.history.push("/cart");
+      props.history.push("/cart");
     }
   };
 
@@ -145,25 +145,23 @@ const ProductDetails = (props) => {
   return (
     <div className="pb-28">
       <button onClick={() => setGetProductDetailsStart(match.params.id)}>Click</button>
-      <div>
-        <div className="mt-10">
-          <Slider {...settings}>
-            <div>
-              <img
-                className="w-auto"
-                src="https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/productimage/2019/7/27/110eefa8-e43b-4c42-85f7-83592dc9c9701564175877424-1.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                className="w-auto"
-                src="https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/productimage/2019/7/27/110eefa8-e43b-4c42-85f7-83592dc9c9701564175877424-1.jpg"
-                alt=""
-              />
-            </div>
-          </Slider>
-        </div>
+      <div className="mt-6">
+        <Slider {...settings}>
+          <div>
+            <img
+              className="w-auto"
+              src="https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/productimage/2019/7/27/110eefa8-e43b-4c42-85f7-83592dc9c9701564175877424-1.jpg"
+              alt=""
+            />
+          </div>
+          <div>
+            <img
+              className="w-auto"
+              src="https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/productimage/2019/7/27/110eefa8-e43b-4c42-85f7-83592dc9c9701564175877424-1.jpg"
+              alt=""
+            />
+          </div>
+        </Slider>
       </div>
 
       <div className="px-3 xl:px-0 mt-3 space-y-3">

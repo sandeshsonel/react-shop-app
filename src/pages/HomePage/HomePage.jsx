@@ -39,7 +39,7 @@ const HomePage = ({ getProductStart, products, setGetProductQuery, isLoading }) 
 
   return (
     <div>
-      <div className="mt-1 h-screen">
+      <div className=" h-screen">
         <HeaderOption setQuery={setQuery} />
 
         {isLoading ? (
@@ -51,8 +51,8 @@ const HomePage = ({ getProductStart, products, setGetProductQuery, isLoading }) 
             <h1 className="">😌No result found😌</h1>
           </div>
         ) : (
-          <div className="px-3 xl:px-0 md:px-0 lg:px-0 mt-32">
-            <div className="text-center font-semiBold text-gray-500 text-sm">
+          <div className="px-3 xl:px-0 md:px-0 lg:px-0 mt-28">
+            <div className="text-center font-semiBold py-2 text-gray-500 text-sm">
               <span>{products.length} styles found</span>
             </div>
             <ProductList products={products} />

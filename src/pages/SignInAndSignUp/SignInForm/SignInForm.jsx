@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 import { signInUser } from "../../../app/actions/auth.action";
 
@@ -23,9 +24,6 @@ class SignInForm extends Component {
     e.preventDefault();
 
     const { email, password } = this.state;
-    // if (!email || !password) {
-    //   alert("Please fill your details");
-    // }
 
     const data = {
       email: email,
@@ -33,10 +31,13 @@ class SignInForm extends Component {
     };
 
     this.props.signInUser(data);
+    if (this.props.isLogin) {
+      return <Redirect to="/" />;
+    }
   };
 
   render() {
-    console.log("xoxo", this.state);
+    console.log("fofo", this.props);
     return (
       <div className="mt-2 px-2 xl:px-0 lg:px-0 h-screen">
         <form onSubmit={this.handleOnSubmit} action="">
@@ -76,8 +77,13 @@ class SignInForm extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  authLoading: state.auth.isLoading,
+  isLogin: state.auth.isLogin,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   signInUser: (data) => dispatch(signInUser(data)),
 });
 
-export default connect(null, mapDispatchToProps)(SignInForm);
+export default connect(mapStateToProps, mapDispatchToProps)(SignInForm);

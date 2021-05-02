@@ -104,8 +104,11 @@ const CartProductList = (props) => {
                   <p className="text-sm xl:text-base text-gray-500">{cartItem.description}</p>
                 </div>
                 <div className="mt-1">
-                  <div className="cursor-pointer hidden xl:block lg:block md:block sm:block">
-                    <svg onClick={() => removeItemToCart(cartItem._id)} xmlns="http://www.w3.org/2000/svg" class="w-6" viewBox="0 0 512 512">
+                  <button
+                    onClick={() => (isLogin ? setRemoveCartItemStart(cartItem.productId) : removeItemToCart(cartItem.productId))}
+                    className="cursor-pointer hidden xl:block lg:block md:block sm:block"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6" viewBox="0 0 512 512">
                       <path
                         fill="none"
                         stroke="currentColor"
@@ -115,7 +118,7 @@ const CartProductList = (props) => {
                         d="M368 368L144 144M368 144L144 368"
                       />
                     </svg>
-                  </div>
+                  </button>
                   <div className="block xl:hidden lg:hidden md:hidden sm:hidden">
                     <IconButton onClick={() => handleMoreInfoButton(cartItem)} size="small">
                       <svg xmlns="http://www.w3.org/2000/svg" className="w-5" viewBox="0 0 512 512">
@@ -204,7 +207,7 @@ const CartProductList = (props) => {
               <li
                 onClick={() => {
                   setState({ bottom: false });
-                  isLogin ? setRemoveCartItemStart(moreInfoDetail._id) : removeItemToCart(moreInfoDetail._id);
+                  isLogin ? setRemoveCartItemStart(moreInfoDetail.productId) : removeItemToCart(moreInfoDetail.productId);
                 }}
                 className="py-4 text-red-500 cursor-pointer"
               >

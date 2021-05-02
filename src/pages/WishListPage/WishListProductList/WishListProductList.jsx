@@ -71,7 +71,7 @@ const WishListProductList = (props) => {
                 </div>
               </div>
               <div className="w-full py-2">
-                <select onClick="" className="w-full border bg-white py-1 border-black">
+                <select onClick="" className="w-full cursor-pointer border bg-white py-1 border-black">
                   <option selected disabled>
                     Select size
                   </option>
@@ -79,7 +79,10 @@ const WishListProductList = (props) => {
                 </select>
               </div>
               <div>
-                <button onClick={() => handleMoveItemToBag(item)} className="w-full border-2 border-green-600 font-semiBold uppercase py-1 text-sm">
+                <button
+                  onClick={() => handleMoveItemToBag(item)}
+                  className="w-full border-2 hover:bg-green-600 hover:text-white border-green-600 font-semiBold uppercase py-1 text-sm"
+                >
                   Move To Bag
                 </button>
               </div>

@@ -6,7 +6,6 @@ const initial_state = {
 };
 
 const shopReducer = (state = initial_state, action) => {
-  console.log("nono", action);
   switch (action.type) {
     case ShopActionTypes.SET_SNACBAR_VISIBLE:
       return {

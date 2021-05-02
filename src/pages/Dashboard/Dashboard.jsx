@@ -1,13 +1,15 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
-class Dashboard extends Component {
-  render() {
-    return (
-      <div>
-        <div></div>
-      </div>
-    );
-  }
-}
+import HeaderOption from "src/components/HeaderOption/HeaderOption";
+
+const Dashboard = () => {
+  const [query, setQuery] = useState({});
+
+  return (
+    <div>
+      <HeaderOption setQuery={setQuery} />
+    </div>
+  );
+};
 
 export default Dashboard;

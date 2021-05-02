@@ -32,11 +32,11 @@ const getProducts3 = async (...props) => {
 function* setGetProductQuery({ payload }) {
   console.log("momo-25", payload);
   try {
+    console.log("asd");
     const products = yield call(setProductQueryRequest, payload);
 
     if (Number(products.status) === 1) {
-      console.log("xoxoxox", products.data, products.status);
-      yield put(getProductSuccess(products.data.products));
+      yield put(getProductSuccess(products.data));
     } else if (Number(products.status) === 0) {
       yield put(getProductFailure(products.message));
     } else {

@@ -1,12 +1,19 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { connect } from "react-redux";
 import SignUpForm from "./SignUpForm/SignUpForm";
 import SignInForm from "./SignInForm/SignInForm";
+import Loader from "src/components/Loader/Loader";
 
-const SignInAndSignUpPage = ({ signUpUser, handleClose }) => {
+const SignInAndSignUpPage = ({ isLogin, signUpUser, handleClose, authLoading }) => {
   const [value, setValue] = useState(1);
 
   return (
     <div className="h-screen pb-10">
+      {authLoading && (
+        <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
+          <Loader />
+        </div>
+      )}
       <div className="mt-2">
         <div className="shadow bg-black">
           <div className="header flex items-center justify-between py-2 px-3">
@@ -79,4 +86,9 @@ const SignInAndSignUpPage = ({ signUpUser, handleClose }) => {
   );
 };
 
-export default SignInAndSignUpPage;
+const mapStateToProps = (state) => ({
+  isLogin: state.auth.isLogin,
+  authLoading: state.auth.isLoading,
+});
+
+export default connect(mapStateToProps)(SignInAndSignUpPage);

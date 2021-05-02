@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import countryNames from "../../../../assets/data/countryNames";
@@ -35,7 +36,23 @@ class AddressPage extends Component {
     console.log("popo-state", this.state);
     return (
       <div>
-        <div className="mt-16 px-3 xl:px-0 lg:px-0 md:px-0 sm:px-0">
+        <div className="header sticky mt-14 py-2 px-2 flex items-center">
+          <Link to="/profile">
+            <button className="outline-none focus:outline-none px-1 py-1 bg-gray-100 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-6" viewBox="0 0 512 512">
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="48"
+                  d="M244 400L100 256l144-144M120 256h292"
+                />
+              </svg>
+            </button>
+          </Link>
+        </div>
+        <div className="px-3 xl:px-0 lg:px-0 md:px-0 sm:px-0">
           <form onSubmit={this.handleOnSubmit} action="">
             <div className="space-y-3">
               <div className="xl:flex lg:flex md:flex sm:flex items-center xl:space-x-3 lg:space-x-3 md:space-x-3 sm:space-x-3 space-x-0">

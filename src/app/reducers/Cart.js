@@ -83,6 +83,11 @@ const cartReducer = (state = initial_state, action) => {
       return {
         ...state,
       };
+    case "USER_SIGN_OUT_SUCCESS":
+      return {
+        ...state,
+        cart: [],
+      };
     default:
       return state;
   }

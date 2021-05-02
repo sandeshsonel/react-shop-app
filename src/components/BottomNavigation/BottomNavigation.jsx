@@ -5,39 +5,9 @@ import { Link, withRouter } from "react-router-dom";
 // action
 import { setRoute } from "../../app/actions";
 
-import { makeStyles } from "@material-ui/core/styles";
-import { Button } from "@material-ui/core";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    textTransform: "uppercase",
-    [theme.breakpoints.up("xl")]: {
-      display: "none",
-    },
-    [theme.breakpoints.up("lg")]: {
-      display: "none",
-    },
-    [theme.breakpoints.up("md")]: {
-      display: "none",
-    },
-    [theme.breakpoints.up("sm")]: {
-      display: "none",
-    },
-    width: "100%",
-    fontStyle: "uppercase",
-    color: "#fff",
-    bottom: 0,
-    position: "fixed",
-    backgroundColor: "#000",
-    boxShadow: "inset 0 1px #fff, 0 1px 3px rgba(34,25,25,0.4)",
-  },
-}));
-
-const navigationRoutes = ["/", "search", "/wishlist", "/carts"];
-
 const BottomNavigationBar = (props) => {
   // const classes = useStyles();
-  const { setRoute, myRoute } = props;
+  const { setRoute, myRoute, cartLength } = props;
   const [value, setValue] = React.useState(1);
 
   const pathname = window.location.pathname;
@@ -161,25 +131,31 @@ const BottomNavigationBar = (props) => {
               className="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center pt-2 pb-1"
             >
               {/* <Link to="cart"> */}
+
               <a onClick={() => setValue(4)}>
-                {myRoute === "/cart" ? (
-                  <svg className="inline-block mb-1 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                    <title>Bag</title>
-                    <path d="M454.65 169.4A31.82 31.82 0 00432 160h-64v-16a112 112 0 00-224 0v16H80a32 32 0 00-32 32v216c0 39 33 72 72 72h272a72.22 72.22 0 0050.48-20.55 69.48 69.48 0 0021.52-50.2V192a31.75 31.75 0 00-9.35-22.6zM176 144a80 80 0 01160 0v16H176z" />
-                  </svg>
-                ) : (
-                  <svg className="inline-block mb-1 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                    <title>Bag</title>
-                    <path
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="32"
-                      d="M80 176a16 16 0 00-16 16v216c0 30.24 25.76 56 56 56h272c30.24 0 56-24.51 56-54.75V192a16 16 0 00-16-16zM160 176v-32a96 96 0 0196-96h0a96 96 0 0196 96v32"
-                    />
-                  </svg>
-                )}
+                <div className="relative">
+                  {myRoute === "/cart" ? (
+                    <svg className="inline-block mb-1 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                      <title>Bag</title>
+                      <path d="M454.65 169.4A31.82 31.82 0 00432 160h-64v-16a112 112 0 00-224 0v16H80a32 32 0 00-32 32v216c0 39 33 72 72 72h272a72.22 72.22 0 0050.48-20.55 69.48 69.48 0 0021.52-50.2V192a31.75 31.75 0 00-9.35-22.6zM176 144a80 80 0 01160 0v16H176z" />
+                    </svg>
+                  ) : (
+                    <svg className="inline-block mb-1 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                      <title>Bag</title>
+                      <path
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="32"
+                        d="M80 176a16 16 0 00-16 16v216c0 30.24 25.76 56 56 56h272c30.24 0 56-24.51 56-54.75V192a16 16 0 00-16-16zM160 176v-32a96 96 0 0196-96h0a96 96 0 0196 96v32"
+                      />
+                    </svg>
+                  )}
+                </div>
+                <div>
+                  <span className="text-xs text-black font-semiBold absolute top-0 ml-2 text-center">{cartLength === 0 ? "" : cartLength}</span>
+                </div>
                 <span className={myRoute === "/cart" ? "tab tab-home block text-xs font-semiBold uppercase" : "tab tab-home block text-xs uppercase"}>
                   Cart
                 </span>
@@ -195,6 +171,7 @@ const BottomNavigationBar = (props) => {
 
 const mapStateToProps = (state) => ({
   myRoute: state.shop.myRoute,
+  cartLength: state.cart.cart.length,
 });
 
 const mapDispatchToProps = (dispatch) => ({

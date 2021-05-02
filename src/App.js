@@ -57,24 +57,23 @@ class App extends Component {
   render() {
     return (
       <div>
-        <div className="font-futura  max-w-2xl m-auto">
-          {/* <Dashboard /> */}
+        <div className="font-inter max-w-2xl m-auto">
           <BrowserRouter>
             <Switch>
               <Route exact path="/" component={HomePage} />
               <Route path="/cart" component={CartPage} />
               <Route path="/wishlist" component={WishListPage} />
-              <Route path="/profile/address" component={AddressPage} />
 
+              <Route path="/profile/address" component={AddressPage} />
               <Route path="/profile/orders" component={MyOrderPage} />
               <Route path="/profile/myDetails" component={MyDetailsPage} />
-
               <Route path="/profile" component={UserProfilePage} />
 
               <Route path="/search" component={SearchPage} />
               <Route path="/productDetails/:type/:category/:productName/:id" component={ProductDetails} />
               <Route path="/loginSign" component={SignInAndSignUpPage} />
               <Route path="/checkout" component={CheckoutPage} />
+              <Route path="/dashboard" component={Dashboard} />
               <Route component={NotFoundPage} />
             </Switch>
             <Header />

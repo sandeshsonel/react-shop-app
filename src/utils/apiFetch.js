@@ -158,15 +158,14 @@ export const deleteCartItemApi = async (data) => {
   console.log("apiFetch", data);
   const { token } = store.default.store.getState().auth;
   console.log("bobo", token);
-  const deleteObj = {
+  const config = {
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
       Authorization: "Bearer " + token,
     },
-    data,
   };
   try {
-    let axiosResult = await axios.delete(cartUrl, deleteObj);
+    let axiosResult = await axios.delete(deleteCartItemUrl(data), config);
     return axiosResult && axiosResult.data;
   } catch (error) {
     console.log("xoxo-error", error);

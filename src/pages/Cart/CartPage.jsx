@@ -43,8 +43,8 @@ const CartPage = (props) => {
               </svg>
             </div>
             <div className="mt-4">
-              <h1 className="font-bold text-xl font-serif">Your bag is empty</h1>
-              <p className="text-sm mt-4 xl:text-base">Items remain in your bag for 60 minutes, and then they’re moved to your Saved Items.</p>
+              <h1 className="font-semiBold text-xl font-serif">Your bag is empty</h1>
+              <p className="text-sm mt-4 xl:text-base text-gray-600">Items remain in your bag for 60 minutes, and then they’re moved to your Saved Items.</p>
               <Link to="/wishlist">
                 <button className="bg-green-400 shadow-lg font-bold uppercase py-3 mt-6 text-sm text-white w-full">View Saved Items</button>
               </Link>

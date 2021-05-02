@@ -19,8 +19,8 @@ const WishListPage = ({ isLogin, wishListItems }) => {
               </svg>
             </div>
             <div className="mt-4">
-              <h1 className="font-bold text-xl font-serif">You have no Saved Items</h1>
-              <p className="text-sm xl:text-base mt-4">Sign in to sync your Saved Items across all your devices.</p>
+              <h1 className="font-semiBold text-xl font-serif">You have no Saved Items</h1>
+              <p className="text-sm xl:text-base mt-4 text-gray-600">Sign in to sync your Saved Items across all your devices.</p>
               <Link to="/loginSign">
                 <button className="bg-black shadow-lg font-bold uppercase py-3 mt-6 text-sm text-white w-full">Sign In</button>
               </Link>

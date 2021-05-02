@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-
+import LazyLoad from "react-lazyload";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 
@@ -57,10 +58,9 @@ const ProductList = ({ isLogin, products, addSavedItem, setAddCartItemStart, sav
   // const mathFavItem = products.map((pro) => savedItems.find((savedItem) => savedItem._id !== pro._id ? p));
   // console.log("xono", mathFavItem);
   return (
-    <div className="mt-4 pb-24">
+    <div className="mt-2 pb-24">
       <div className="grid grid-cols-2 gap-3 xl:grid xl:grid-cols-3 xl:gap-4 lg:grid lg:grid-cols-3 md:grid md:grid-cols-3 sm:grid sm:grid-cols-3 ">
         {products.map((product) => (
-          // <Link to={`/productDetails/${product.gender}/${product.category}/${product.productName.replace(/\s/g, "")}/${product._id}`}>
           <div className="cursor-pointer hover:opacity-75 w-auto h-auto">
             <div className="relative">
               <img
@@ -68,6 +68,7 @@ const ProductList = ({ isLogin, products, addSavedItem, setAddCartItemStart, sav
                 src="https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/productimage/2019/7/27/110eefa8-e43b-4c42-85f7-83592dc9c9701564175877424-1.jpg"
                 alt=""
               />
+
               <button className="absolute cursor-pointer bottom-0 right-0 mr-2 mb-2 bg-white bg-opacity-70 px-1 py-1 rounded-full focus:ring-2 focus:ring-offset-2 focus:ring-offset-pink-500 focus:ring-pink-300 focus:outline-none transition-colors duration-200">
                 {product.fav ? (
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-6 fill-current text-pink-600" viewBox="0 0 512 512">
@@ -96,17 +97,16 @@ const ProductList = ({ isLogin, products, addSavedItem, setAddCartItemStart, sav
                 )}
               </button>
             </div>
-            <div onClick={() => routeChange(product)} className="mt-1">
-              <h1 className="font-semiBold text-sm">{product.productName}</h1>
+            <div onClick={() => routeChange(product)} className="mt-2">
+              <h1 className=" font-semiBold text-sm">{product.productName}</h1>
               <p className="text-sm text-gray-500 break-words overflow-ellipsis">{product.description}</p>
-              <div className="text-sm space-x-1">
+              <div className="text-sm space-x-1 mt-1">
                 <span className="text-sm font-bold">Rs. {Math.floor(product.price - (product.price * product.priceDiscount) / 100)}</span>
                 <span className="line-through text-gray-500">{product.price}</span>
                 <span className="text-red-500">{`(${product.priceDiscount}) % OFF`}</span>
               </div>
             </div>
           </div>
-          // </Link>
         ))}
       </div>
       <Snackbar

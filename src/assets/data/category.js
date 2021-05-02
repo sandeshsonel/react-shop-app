@@ -59,16 +59,8 @@ const category = {
       value: "sarees",
     },
     {
-      name: "Dress Materials",
-      value: "dress-materials",
-    },
-    {
       name: "Lehenga Cholis",
       value: "lehenga-cholis",
-    },
-    {
-      name: "Dupattas & Shawls",
-      value: "dupattas-shawls",
     },
     {
       name: "Jackets",

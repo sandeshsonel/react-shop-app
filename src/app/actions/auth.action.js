@@ -15,9 +15,18 @@ export const signUpUser = (data) => ({
   payload: data,
 });
 
+// signin
 export const signInUser = (data) => ({
   type: AuthActionTypes.SIGN_IN_USER,
   payload: data,
+});
+export const signInUserSuccess = (data) => ({
+  type: AuthActionTypes.SIGN_IN_USER_SUCCESS,
+  payload: data,
+});
+export const signInUserFailed = (errorMsg) => ({
+  type: AuthActionTypes.SIGN_IN_USER_FAILED,
+  payload: errorMsg,
 });
 
 export const signOutUser = () => ({

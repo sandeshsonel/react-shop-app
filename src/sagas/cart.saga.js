@@ -66,7 +66,7 @@ function* removeCartItem2({ payload }) {
   try {
     const cartItems = yield call(removeCartItemRequest, payload);
     if (Number(cartItems.status) === 1) {
-      yield put(removeCartItemSuccess(cartItems.data[0].items));
+      yield put(removeCartItemSuccess(cartItems.data));
     } else if (Number(cartItems.status === 0)) {
       yield put(removeCartItemFailed(cartItems.message));
     }

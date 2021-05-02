@@ -2,7 +2,7 @@ import storage from "redux-persist/lib/storage";
 import AuthActionTypes from "../app/types/auth.types";
 const { all, call, fork, put, takeEvery } = require("redux-saga/effects");
 const { signUpUser, signInUser } = require("../utils/apiFetch");
-const { setUserData, setLogin, setUserProfileData, userSignOutSuccess } = require("../app/actions");
+const { setUserData, setLogin, setUserProfileData, userSignOutSuccess, signInUserSuccess, signInUserFailed } = require("../app/actions");
 
 const signUpUserRequest = async (data) => {
   console.log(data);
@@ -33,7 +33,7 @@ function* signInUserFun({ payload }) {
         expireDate,
       };
       localStorage.setItem("userData", JSON.stringify(saveUserData));
-      yield put(setUserData(saveUserData));
+      yield put(signInUserSuccess(saveUserData));
       yield put(setLogin(true));
       yield put(setUserProfileData(signInData.data));
     }

@@ -40,7 +40,7 @@ const ProductDetails = (props) => {
   });
 
   const getProduct = async () => {
-    const result = await axios.get(`http://localhost:8000/api/v1/products/${match.params.id}`);
+    const result = await axios.get(`https://react-shops-app.herokuapp.com/api/v1/products/${match.params.id}`);
     setProducts(result.data.data.product);
   };
 

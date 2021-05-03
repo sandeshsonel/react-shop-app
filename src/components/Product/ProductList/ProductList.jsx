@@ -17,7 +17,6 @@ const ProductList = ({ isLogin, products, addSavedItem, setAddCartItemStart, sav
     message: "",
     warning: "success",
   });
-  const [loaded, setLoaded] = useState(false);
 
   const routeChange = (product) => {
     let path = `/productDetails/${product.gender}/${product.category}/${product.productName.replace(/\s/g, "")}/${product._id}`;
@@ -66,11 +65,9 @@ const ProductList = ({ isLogin, products, addSavedItem, setAddCartItemStart, sav
             <div className="relative">
               <div>
                 <img
-                  style={loaded ? {} : { display: "none" }}
                   onClick={() => routeChange(product)}
                   src="https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/productimage/2019/7/27/110eefa8-e43b-4c42-85f7-83592dc9c9701564175877424-1.jpg"
                   alt=""
-                  onLoad={() => setLoaded(true)}
                 />
               </div>
 

@@ -67,7 +67,7 @@ const CartProductList = (props) => {
       setState({ bottom: false });
     } else {
       if (isLogin) {
-        setAddCartItemStart(moreInfoDetail);
+        addSavedItem(moreInfoDetail);
         setRemoveCartItemStart(moreInfoDetail.productId);
       } else {
         addSavedItem(moreInfoDetail);
@@ -91,7 +91,11 @@ const CartProductList = (props) => {
 
     for (let i = 1; i <= 5; i++) {
       if (i !== quantity) {
-        array.push(<option value={i}>{i}</option>);
+        array.push(
+          <option selected={i === quantity} value={i}>
+            {i}
+          </option>
+        );
       }
     }
 
@@ -169,7 +173,7 @@ const CartProductList = (props) => {
                     name=""
                     id=""
                   >
-                    <option selected disabled value="">
+                    <option selected disabled={!cartItem.quantity} value="">
                       {!cartItem.quantity ? "Quantity" : cartItem.quantity}
                     </option>
                     {quantityOption(cartItem.quantity)}

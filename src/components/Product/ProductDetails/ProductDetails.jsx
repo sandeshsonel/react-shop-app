@@ -52,23 +52,36 @@ const ProductDetails = (props) => {
   }, []);
 
   const handleAddItemToBag = (product) => {
-    const alreadyItemInCart = cart.some((c) => product._id === c._id);
+    console.log("xoko", product);
+    const alreadyItemInCart = cart.find((c) => product._id === c._id);
+    console.log("xoko", alreadyItemInCart);
 
     if (selectSize === null) {
       setSnackbar({ ...snackbar, open: true, message: "Please Select Size", warning: "error" });
       setTimeout(() => {
         setSnackbar({ ...snackbar, open: false, message: "", warning: "" });
       }, 2000);
-    } else if (alreadyItemInCart) {
-      setSnackbar({ ...snackbar, open: true, message: "Already item in cart", warning: "error" });
-      setTimeout(() => {
-        setSnackbar({ ...snackbar, open: false, message: "", warning: "" });
-      }, 2000);
+      // } else if (alreadyItemInCart) {
+      //   setSnackbar({ ...snackbar, open: true, message: "Already item in cart", warning: "error" });
+      //   setTimeout(() => {
+      //     setSnackbar({ ...snackbar, open: false, message: "", warning: "" });
+      //   }, 2000);
     } else {
       if (isLogin) {
         setAddCartItemStart({ ...product, selectSize, quantity: 1 });
       } else {
-        addItemToCart({ ...product, selectSize: selectSize, quantity: 1 });
+        if (alreadyItemInCart?.quantity > 5) {
+          setSnackbar({ ...snackbar, open: true, message: "Already item in cart", warning: "error" });
+          setTimeout(() => {
+            setSnackbar({ ...snackbar, open: false, message: "", warning: "" });
+          }, 2000);
+        } else {
+          addItemToCart({ ...product, selectSize: selectSize });
+          setSnackbar({ ...snackbar, open: true, message: "Already item in cart", warning: "error" });
+          setTimeout(() => {
+            setSnackbar({ ...snackbar, open: false, message: "", warning: "" });
+          }, 2000);
+        }
       }
       setSnackbar({ ...snackbar, open: true, message: "Add Item To Cart", warning: "success" });
       setTimeout(() => {

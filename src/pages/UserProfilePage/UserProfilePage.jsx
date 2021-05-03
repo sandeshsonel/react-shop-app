@@ -13,11 +13,10 @@ import paymentIcon from "../../assets/images/payment.svg";
 
 const UserProfilePage = (props) => {
   console.log("popo-props", props);
-  const { signOutUser, fullName, isLogin,  } = props;
+  const { signOutUser, fullName, isLogin } = props;
 
   const handleSignOutUser = () => {
     signOutUser();
-
 
     props.history.push("/");
   };
@@ -93,7 +92,11 @@ const UserProfilePage = (props) => {
               </Link>
             </li>
             <li>
-              <div className="flex items-center justify-between cursor-pointer space-x-4 py-3 border-b-4 hover:bg-gray-100 border-gray-200" href="">
+              <div
+                onClick={handleSignOutUser}
+                className="flex items-center justify-between cursor-pointer space-x-4 py-3 border-b-4 hover:bg-gray-100 border-gray-200"
+                href=""
+              >
                 <div className="flex items-center space-x-2">
                   <div>
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6" viewBox="0 0 512 512">
@@ -108,9 +111,7 @@ const UserProfilePage = (props) => {
                     </svg>
                   </div>
                   <div className="w-full">
-                    <span onClick={handleSignOutUser} className="uppercase">
-                      Sign out
-                    </span>
+                    <span className="uppercase">Sign out</span>
                   </div>
                 </div>
               </div>

@@ -6,9 +6,9 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 
-import { addSavedItem, setAddCartItemStart } from "../../../app/actions";
+import { addSavedItem, setAddCartItemStart, removeSavedItem } from "../../../app/actions";
 
-const ProductList = ({ isLogin, products, addSavedItem, setAddCartItemStart, savedItems }) => {
+const ProductList = ({ isLogin, products, addSavedItem, setAddCartItemStart, savedItems, removeSavedItem }) => {
   let history = useHistory();
   const [snackbar, setSnackbar] = React.useState({
     open: false,
@@ -43,20 +43,30 @@ const ProductList = ({ isLogin, products, addSavedItem, setAddCartItemStart, sav
       }, 2000);
     }
   };
-  // let productFilterByFav = [];
-  // for (let i = 0; i < products.length; i++) {
-  //   for (let j = 0; j < savedItems.length; j++) {
-  //     if (products[i]._id === savedItems[j]._id) {
-  //       productFilterByFav.push({ ...products[i], fav: true });
-  //     } else {
-  //       productFilterByFav.push(products[i]);
-  //     }
-  //   }
-  // }
-  // let productsItems = !productFilterByFav.length ? products : productFilterByFav;
-  // console.log(productFilterByFav);
-  // const mathFavItem = products.map((pro) => savedItems.find((savedItem) => savedItem._id !== pro._id ? p));
-  // console.log("xono", mathFavItem);
+
+  const handleRemoveSavedItem = (productId) => {
+    removeSavedItem(productId);
+  };
+
+  let faveItemArray = [];
+
+  for (let i = 0; i < products.length; i++) {
+    const matchSaveItem = savedItems.find((m) => m._id === products[i]._id);
+    if (matchSaveItem) {
+      faveItemArray.push(products[i]);
+    } else {
+      faveItemArray.push(products[i]);
+    }
+    // if (products[i]._id == savedItems[j]._id) {
+    //   faveItemArray.push({ ...products[i], fav: true });
+    // } else {
+    //   faveItemArray.push(products[i]);
+    // }
+  }
+
+  useEffect(() => {}, [savedItems]);
+
+  console.log("www", faveItemArray);
   return (
     <div className="mt-2 pb-24">
       <div className="grid grid-cols-2 gap-3 xl:grid xl:grid-cols-3 xl:gap-4 lg:grid lg:grid-cols-3 md:grid md:grid-cols-3 sm:grid sm:grid-cols-3 ">
@@ -71,33 +81,38 @@ const ProductList = ({ isLogin, products, addSavedItem, setAddCartItemStart, sav
                 />
               </div>
 
-              <button className="absolute cursor-pointer bottom-0 right-0 mr-2 mb-2 bg-white bg-opacity-70 px-1 py-1 rounded-full focus:ring-2 focus:ring-offset-2 focus:ring-offset-pink-500 focus:ring-pink-300 focus:outline-none transition-colors duration-200">
+              {/* <div className="absolute cursor-pointer bottom-0 right-0 mr-2 mb-2 ">
                 {product.fav ? (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 fill-current text-pink-600" viewBox="0 0 512 512">
-                    <title>Heart</title>
-                    <path d="M256 448a32 32 0 01-18-5.57c-78.59-53.35-112.62-89.93-131.39-112.8-40-48.75-59.15-98.8-58.61-153C48.63 114.52 98.46 64 159.08 64c44.08 0 74.61 24.83 92.39 45.51a6 6 0 009.06 0C278.31 88.81 308.84 64 352.92 64c60.62 0 110.45 50.52 111.08 112.64.54 54.21-18.63 104.26-58.61 153-18.77 22.87-52.8 59.45-131.39 112.8a32 32 0 01-18 5.56z" />
-                  </svg>
+                  <button
+                    className="bg-white bg-opacity-70 px-1 py-1 rounded-full focus:ring-2 focus:ring-offset-2 focus:ring-offset-pink-500 focus:ring-pink-300 focus:outline-none transition-colors duration-200"
+                    onClick={() => handleRemoveSavedItem(product._id)}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 fill-current text-pink-600" viewBox="0 0 512 512">
+                      <title>Heart</title>
+                      <path d="M256 448a32 32 0 01-18-5.57c-78.59-53.35-112.62-89.93-131.39-112.8-40-48.75-59.15-98.8-58.61-153C48.63 114.52 98.46 64 159.08 64c44.08 0 74.61 24.83 92.39 45.51a6 6 0 009.06 0C278.31 88.81 308.84 64 352.92 64c60.62 0 110.45 50.52 111.08 112.64.54 54.21-18.63 104.26-58.61 153-18.77 22.87-52.8 59.45-131.39 112.8a32 32 0 01-18 5.56z" />
+                    </svg>
+                  </button>
                 ) : (
-                  <svg
+                  <button
                     onClick={() =>
                       // addSavedItem(product)
                       handleSavedItem(product)
                     }
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-6"
-                    viewBox="0 0 512 512"
+                    className="bg-white bg-opacity-70 px-1 py-1 rounded-full focus:ring-2 focus:ring-offset-2 focus:ring-offset-pink-500 focus:ring-pink-300 focus:outline-none transition-colors duration-200"
                   >
-                    <path
-                      d="M352.92 80C288 80 256 144 256 144s-32-64-96.92-64c-52.76 0-94.54 44.14-95.08 96.81-1.1 109.33 86.73 187.08 183 252.42a16 16 0 0018 0c96.26-65.34 184.09-143.09 183-252.42-.54-52.67-42.32-96.81-95.08-96.81z"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="32"
-                    />
-                  </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6" viewBox="0 0 512 512">
+                      <path
+                        d="M352.92 80C288 80 256 144 256 144s-32-64-96.92-64c-52.76 0-94.54 44.14-95.08 96.81-1.1 109.33 86.73 187.08 183 252.42a16 16 0 0018 0c96.26-65.34 184.09-143.09 183-252.42-.54-52.67-42.32-96.81-95.08-96.81z"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="32"
+                      />
+                    </svg>
+                  </button>
                 )}
-              </button>
+              </div> */}
             </div>
             <div onClick={() => routeChange(product)} className="mt-2">
               <h1 className=" font-semiBold text-sm">{product.productName}</h1>
@@ -132,6 +147,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   addSavedItem: (item) => dispatch(addSavedItem(item)),
   setAddCartItemStart: (item) => dispatch(setAddCartItemStart(item)),
+  removeSavedItem: (productId) => dispatch(removeSavedItem(productId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductList);

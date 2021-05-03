@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -30,7 +30,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const Header = (props) => {
   const pathname = window.location.pathname;
   console.log("momo", pathname);
-  const { isLogin, setRoute, myRoute, cartLength } = props;
+  const { isLogin, setRoute, myRoute, cartItems } = props;
   const classes = useStyles();
   const [state, setState] = React.useState({
     left: false,
@@ -54,7 +54,9 @@ const Header = (props) => {
     setState({ ...state, [anchor]: open });
   };
 
-  console.log("header", props);
+  const cartItemQuantity = cartItems.map((c) => c.quantity).reduce((acc, cur) => acc + cur, 0);
+
+  console.log("header", cartItemQuantity);
 
   return (
     <div className="max-w-2xl m-auto fixed w-full top-0">
@@ -183,7 +185,9 @@ const Header = (props) => {
                         </svg>
                       )}
                       <div>
-                        <span className="text-sm text-black font-semiBold absolute ml-2 top-1 text-center">{cartLength === 0 ? "" : cartLength}</span>
+                        <span className={`text-sm font-semiBold absolute ml-2 top-1 text-center ${myRoute === "/cart" ? "text-black" : "text-white"}`}>
+                          {cartItemQuantity === 0 ? "" : cartItemQuantity}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -245,7 +249,7 @@ const Header = (props) => {
 const mapStateToProps = (state) => ({
   isLogin: state.auth.isLogin,
   myRoute: state.shop.myRoute,
-  cartLength: state.cart.cart.length,
+  cartItems: state.cart.cart,
 });
 
 const mapDispatchToProps = (dispatch) => ({

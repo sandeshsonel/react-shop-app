@@ -89,14 +89,14 @@ const CartProductList = (props) => {
     console.log(quantity);
     let array = [];
 
-    for (let i = 1; i <= 5; i++) {
-      if (i !== quantity) {
-        array.push(
-          <option selected={i === quantity} value={i}>
-            {i}
-          </option>
-        );
-      }
+    for (let i = 1; i <= 10; i++) {
+      // if (i !== quantity) {
+      array.push(
+        <option selected={i === quantity} value={i}>
+          {i}
+        </option>
+      );
+      // }
     }
 
     return array;
@@ -173,9 +173,9 @@ const CartProductList = (props) => {
                     name=""
                     id=""
                   >
-                    <option selected disabled={!cartItem.quantity} value="">
+                    {/* <option selected disabled={!cartItem.quantity} value="">
                       {!cartItem.quantity ? "Quantity" : cartItem.quantity}
-                    </option>
+                    </option> */}
                     {quantityOption(cartItem.quantity)}
                   </select>
                 </div>

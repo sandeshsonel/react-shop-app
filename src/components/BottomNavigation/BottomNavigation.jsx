@@ -7,7 +7,7 @@ import { setRoute } from "../../app/actions";
 
 const BottomNavigationBar = (props) => {
   // const classes = useStyles();
-  const { setRoute, myRoute, cartLength } = props;
+  const { setRoute, myRoute, cartLength, cartItems } = props;
   const [value, setValue] = React.useState(1);
 
   const pathname = window.location.pathname;
@@ -17,6 +17,10 @@ const BottomNavigationBar = (props) => {
     props.history.push(path);
     setRoute(path);
   };
+
+  const cartItemQuantity = cartItems.map((c) => c.quantity).reduce((acc, cur) => acc + cur, 0);
+
+  console.log("bottom-props", props);
 
   return (
     <div className="">
@@ -154,7 +158,7 @@ const BottomNavigationBar = (props) => {
                   )}
                 </div>
                 <div>
-                  <span className="text-xs text-black font-semiBold absolute top-0 ml-2 text-center">{cartLength === 0 ? "" : cartLength}</span>
+                  <span className="text-xs text-black font-semiBold absolute top-0 ml-2 text-center">{cartItemQuantity === 0 ? "" : cartItemQuantity}</span>
                 </div>
                 <span className={myRoute === "/cart" ? "tab tab-home block text-xs font-semiBold uppercase" : "tab tab-home block text-xs uppercase"}>
                   Cart
@@ -171,7 +175,7 @@ const BottomNavigationBar = (props) => {
 
 const mapStateToProps = (state) => ({
   myRoute: state.shop.myRoute,
-  cartLength: state.cart.cart.length,
+  cartItems: state.cart.cart,
 });
 
 const mapDispatchToProps = (dispatch) => ({

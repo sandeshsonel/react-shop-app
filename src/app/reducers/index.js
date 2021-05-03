@@ -13,7 +13,7 @@ const persistConfig = {
   key: "root",
   storage,
   // Whitelist (Save Specific Reducers)
-  whitelist: ["auth", "userProfile"],
+  whitelist: ["auth", "userProfile", "cart"],
   // Blacklist (Don't Save Specific Reducers)
   // blacklist: ['authReducer.loading'],
 };

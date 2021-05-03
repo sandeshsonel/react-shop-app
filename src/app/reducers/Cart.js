@@ -1,4 +1,5 @@
 import CartActionType from "../types/cart.types";
+import { updateCartItemQuantity } from "../utils/cart.utils";
 
 const initial_state = {
   cart: [],
@@ -7,7 +8,7 @@ const initial_state = {
 };
 
 const cartReducer = (state = initial_state, action) => {
-  console.log("xolo-action", action.payload);
+  console.log("xolo-action", action.type);
   switch (action.type) {
     //----------GET-----------//
 
@@ -79,9 +80,11 @@ const cartReducer = (state = initial_state, action) => {
         ...state,
         cart: state.cart.filter((cart) => action.payload !== cart._id),
       };
-    case CartActionType.CLEAR_ITEM_FROM_CART:
+    //----------UPDATE-----------//
+    case CartActionType.UPDATE_CART_ITEM_QUANTITY:
       return {
         ...state,
+        cart: updateCartItemQuantity(state.cart, action.payload.productId, action.payload.quantity),
       };
     case "USER_SIGN_OUT_SUCCESS":
       return {

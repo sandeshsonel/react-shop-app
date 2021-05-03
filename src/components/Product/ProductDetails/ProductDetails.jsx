@@ -40,6 +40,7 @@ const ProductDetails = (props) => {
   });
 
   const getProduct = async () => {
+    // const result = await axios.get(`http://localhost:8000/api/v1/products/${match.params.id}`);
     const result = await axios.get(`https://react-shops-app.herokuapp.com/api/v1/products/${match.params.id}`);
     setProducts(result.data.data.product);
   };
@@ -50,17 +51,8 @@ const ProductDetails = (props) => {
     // setGetProductDetailsStart(match.params.id);
   }, []);
 
-  const handleClick = (newState) => () => {
-    setSnackbar({ open: true, ...newState });
-  };
-
-  const handleClose = () => {
-    setSnackbar({ ...snackbar, open: false });
-  };
-
   const handleAddItemToBag = (product) => {
     const alreadyItemInCart = cart.some((c) => product._id === c._id);
-    console.log("xolo", alreadyItemInCart);
 
     if (selectSize === null) {
       setSnackbar({ ...snackbar, open: true, message: "Please Select Size", warning: "error" });
@@ -74,9 +66,9 @@ const ProductDetails = (props) => {
       }, 2000);
     } else {
       if (isLogin) {
-        setAddCartItemStart(product);
+        setAddCartItemStart({ ...product, selectSize, quantity: 1 });
       } else {
-        addItemToCart({ ...product, selectSize: selectSize });
+        addItemToCart({ ...product, selectSize: selectSize, quantity: 1 });
       }
       setSnackbar({ ...snackbar, open: true, message: "Add Item To Cart", warning: "success" });
       setTimeout(() => {
@@ -114,14 +106,6 @@ const ProductDetails = (props) => {
     // }
   };
 
-  const productDummyObject = productDummy.find((product) => product._id === match.params.id);
-  console.log(productDummyObject);
-
-  const alreadyItemInCart = cart.some((c) => match.params.id === c._id);
-  const alreadyItemInWishlist = savedItems.some((c) => match.params.id === c._id);
-
-  console.log("xoxo", props);
-
   const sizesOptions = () => {
     let array = [];
 
@@ -139,8 +123,6 @@ const ProductDetails = (props) => {
       </div>
     );
   }
-
-  console.log("xoxo", isLogin);
 
   return (
     <div className="pb-28">
@@ -216,7 +198,6 @@ const ProductDetails = (props) => {
             <button
               type="submit"
               onClick={() => handleAddItemToBag(product)}
-              // onClick={() => setAddCartItemStart(product)}
               className="w-full bg-black uppercase text-sm xl:text-base lg:text-base md:text-base sm:text-base py-3 font-semiBold outline-none text-white"
             >
               <span>Add To Bag</span>

@@ -31,8 +31,8 @@ class SignInForm extends Component {
     };
 
     this.props.signInUser(data);
-    if (this.props.isLogin) {
-      return <Redirect to="/" />;
+    if (this.props.isLogin && !this.props.authLoading) {
+      window.location.reload();
     }
   };
 

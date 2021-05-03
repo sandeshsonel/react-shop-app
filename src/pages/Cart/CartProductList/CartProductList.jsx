@@ -7,12 +7,29 @@ import Drawer from "@material-ui/core/Drawer";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 
-import { removeSavedItem, addItemToCart, removeItemToCart, addSavedItem, setRemoveCartItemStart, setAddCartItemStart } from "../../../app/actions";
-import { SignalCellularNullTwoTone } from "@material-ui/icons";
+import {
+  removeSavedItem,
+  addItemToCart,
+  removeItemToCart,
+  addSavedItem,
+  setRemoveCartItemStart,
+  setAddCartItemStart,
+  updateCartItemQuantity,
+} from "../../../app/actions";
 
 const CartProductList = (props) => {
   console.log(props);
-  const { savedItems, removeSavedItem, cartItems, removeItemToCart, addSavedItem, setRemoveCartItemStart, isLogin, setAddCartItemStart } = props;
+  const {
+    savedItems,
+    removeSavedItem,
+    cartItems,
+    removeItemToCart,
+    addSavedItem,
+    setRemoveCartItemStart,
+    isLogin,
+    setAddCartItemStart,
+    updateCartItemQuantity,
+  } = props;
   const [state, setState] = React.useState({
     bottom: false,
   });
@@ -51,7 +68,7 @@ const CartProductList = (props) => {
     } else {
       if (isLogin) {
         setAddCartItemStart(moreInfoDetail);
-        setRemoveCartItemStart(moreInfoDetail._id);
+        setRemoveCartItemStart(moreInfoDetail.productId);
       } else {
         addSavedItem(moreInfoDetail);
         removeItemToCart(moreInfoDetail._id);
@@ -62,6 +79,10 @@ const CartProductList = (props) => {
       // }, 2000);
       setState({ bottom: false });
     }
+  };
+
+  const handleUpdateItemQuantity = (productId, quantity) => {
+    updateCartItemQuantity({ productId, quantity });
   };
 
   const quantityOption = (quantity) => {
@@ -83,7 +104,8 @@ const CartProductList = (props) => {
     .reduce((r, a) => r.concat(a), [])
     .reduce((acc, cur) => acc + cur, 0);
   // .map((value, idx) => value.reduce((sum, curr) => sum + curr[idx], 0));
-  console.log("lolo", subTotal);
+
+  console.log("lolo", props);
 
   return (
     <div className="mt-16 pb-10">
@@ -105,8 +127,8 @@ const CartProductList = (props) => {
                 </div>
                 <div className="mt-1">
                   <button
-                    onClick={() => (isLogin ? setRemoveCartItemStart(cartItem.productId) : removeItemToCart(cartItem.productId))}
-                    className="cursor-pointer hidden xl:block lg:block md:block sm:block"
+                    onClick={() => (isLogin ? setRemoveCartItemStart(cartItem.productId) : removeItemToCart(cartItem._id))}
+                    className="cursor-pointer hidden xl:block lg:block md:block sm:block px-1 py-1 bg-gray-100 rounded-full focus:outline-none outline-none focus:ring-2 focus:ring-black"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6" viewBox="0 0 512 512">
                       <path
@@ -119,16 +141,14 @@ const CartProductList = (props) => {
                       />
                     </svg>
                   </button>
-                  <div className="block xl:hidden lg:hidden md:hidden sm:hidden">
-                    <IconButton onClick={() => handleMoreInfoButton(cartItem)} size="small">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="w-5" viewBox="0 0 512 512">
-                        <title>Ellipsis Vertical</title>
-                        <circle cx="256" cy="256" r="48" />
-                        <circle cx="256" cy="416" r="48" />
-                        <circle cx="256" cy="96" r="48" />
-                      </svg>
-                    </IconButton>
-                  </div>
+                  <button onClick={() => handleMoreInfoButton(cartItem)} className="block xl:hidden lg:hidden md:hidden sm:hidden px-1 py-1 bg-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-5" viewBox="0 0 512 512">
+                      <title>Ellipsis Vertical</title>
+                      <circle cx="256" cy="256" r="48" />
+                      <circle cx="256" cy="416" r="48" />
+                      <circle cx="256" cy="96" r="48" />
+                    </svg>
+                  </button>
                 </div>
               </div>
               <div className="flex justify-between items-center m-auto space-x-3 mt-2 text-sm xl:text-base">
@@ -138,8 +158,18 @@ const CartProductList = (props) => {
                 </div>
                 <div className="w-full">
                   <span className="font-semiBold">Quantity:</span>
-                  <select onClick={(e) => setQuantity(e.target.value)} className="w-full mt-1 bg-white border" name="" id="">
-                    <option selected value="">
+                  <select
+                    onChange={
+                      (e) => handleUpdateItemQuantity(cartItem._id, e.target.value)
+                      // updateCartItemQuantity({ productId: cartItem._id, quantity: e.target.value })
+                      // console.log({ productId: cartItem._id, quantity: e.target.value })
+                      // setQuantity(e.target.value)
+                    }
+                    className="w-full mt-1 bg-white border"
+                    name=""
+                    id=""
+                  >
+                    <option selected disabled value="">
                       {!cartItem.quantity ? "Quantity" : cartItem.quantity}
                     </option>
                     {quantityOption(cartItem.quantity)}
@@ -147,9 +177,7 @@ const CartProductList = (props) => {
                 </div>
                 <div className="w-full">
                   <span className="font-semiBold">Total:</span>
-                  <h1 className="mt-1">
-                    Rs. {Math.floor(cartItem.price - (cartItem.price * cartItem.priceDiscount) / 100) * cartItem.quantity ? cartItem.quantity : 1}
-                  </h1>
+                  <h1 className="mt-1">Rs. {Math.floor(cartItem.price - (cartItem.price * cartItem.priceDiscount) / 100) * cartItem.quantity}</h1>
                 </div>
               </div>
             </div>
@@ -177,7 +205,7 @@ const CartProductList = (props) => {
           </ul>
         </div>
         <footer className=" w-full mt-6">
-          <Link to="/checkout">
+          <Link to={isLogin ? "/checkout" : "/loginSign"}>
             <button className="uppercase bottom-0 bg-green-500 hover:bg-green-600 outline-none shadow-md text-white font-semiBold w-full py-3 text-sm xl:text-base rounded-none">
               Checkout
             </button>
@@ -207,7 +235,7 @@ const CartProductList = (props) => {
               <li
                 onClick={() => {
                   setState({ bottom: false });
-                  isLogin ? setRemoveCartItemStart(moreInfoDetail.productId) : removeItemToCart(moreInfoDetail.productId);
+                  isLogin ? setRemoveCartItemStart(moreInfoDetail.productId) : removeItemToCart(moreInfoDetail._id);
                 }}
                 className="py-4 text-red-500 cursor-pointer"
               >
@@ -239,6 +267,7 @@ const mapDispatchToProps = (dispatch) => ({
   removeSavedItem: (id) => dispatch(removeSavedItem(id)),
   removeItemToCart: (itemId) => dispatch(removeItemToCart(itemId)),
   addSavedItem: (item) => dispatch(addSavedItem(item)),
+  updateCartItemQuantity: (details) => updateCartItemQuantity(details),
   // online
   setAddCartItemStart: (item) => dispatch(setAddCartItemStart(item)),
   setRemoveCartItemStart: (itemId) => dispatch(setRemoveCartItemStart(itemId)),

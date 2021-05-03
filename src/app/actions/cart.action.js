@@ -47,7 +47,21 @@ export const removeCartItemFailed = (errorMsg) => ({
   payload: errorMsg,
 });
 
-//-------------------------------
+//----------UPDATE-----------//
+export const updateCartItemQuantity = ({ productId, quantity }) => ({
+  type: CartActionType.UPDATE_CART_ITEM_QUANTITY,
+  payload: productId,
+});
+
+export const updateCartItemQuantitySuccess = (updateProduct) => ({
+  type: CartActionType.UPDATE_CART_ITEM_SUCCESS,
+  payload: updateProduct,
+});
+
+export const updateCartItemQuantityFailed = (errorMsg) => ({
+  type: CartActionType.UPDATE_CART_ITEM_FAILED,
+  payload: errorMsg,
+});
 
 export const addItemToCart = (item) => ({
   type: CartActionType.ADD_ITEM_TO_CART,

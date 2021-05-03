@@ -15,3 +15,8 @@ export const removeItemToCart = (cart, id) => {
 };
 
 export const clearAllItemToCart = () => {};
+
+export const updateCartItemQuantity = (cartItems, productId, quantity) => {
+  console.log(cartItems, productId, quantity);
+  return cartItems;
+};

@@ -8,9 +8,9 @@ const initial_state = {
 };
 
 const cartReducer = (state = initial_state, action) => {
+  console.log("iii-reducer", action);
   switch (action.type) {
     //----------GET-----------//
-
     case CartActionType.GET_CART_ITEM_START:
       return {
         ...state,
@@ -79,7 +79,6 @@ const cartReducer = (state = initial_state, action) => {
         ...state,
         cart: state.cart.filter((cart) => action.payload.item !== cart._id && action.payload.size !== cart.selectSize),
       };
-    //----------UPDATE-----------//
     case CartActionType.UPDATE_CART_ITEM_QUANTITY:
       return {
         ...state,

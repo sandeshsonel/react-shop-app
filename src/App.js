@@ -1,6 +1,8 @@
 import React, { Component, lazy } from "react";
 import { connect } from "react-redux";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
+import { createBrowserHistory } from "history";
+import ReactGA from "react-ga";
 
 import { setLogin } from "./app/actions";
 
@@ -23,6 +25,13 @@ import MyDetailsPage from "./pages/UserProfilePage/ChildPages/MyDetailsPage/MyDe
 import Dashboard from "./pages/Dashboard/Dashboard";
 import AddressPage from "./pages/UserProfilePage/ChildPages/AddressPage/AddressPage";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
+
+const history = createBrowserHistory();
+
+history.listen((location) => {
+  ReactGA.set({ page: location.pathname }); // Update the user's current page
+  ReactGA.pageview(location.pathname); // Record a pageview for the given page
+});
 
 class App extends Component {
   constructor(props) {
@@ -58,7 +67,7 @@ class App extends Component {
     return (
       <div>
         <div className="font-inter max-w-2xl m-auto">
-          <BrowserRouter>
+          <Router history={history}>
             <Switch>
               <Route exact path="/" component={HomePage} />
               <Route path="/cart" component={CartPage} />
@@ -78,7 +87,7 @@ class App extends Component {
             </Switch>
             <Header />
             <BottomNavigationBar />
-          </BrowserRouter>
+          </Router>
         </div>
       </div>
     );

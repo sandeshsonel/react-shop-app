@@ -3,17 +3,29 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import ReactGA from "react-ga";
 
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import { store, persistor } from "./store";
 
+const TRACKING_ID = "UA-173919072-1";
+ReactGA.initialize(TRACKING_ID);
+ReactGA.event({
+  category: "User",
+  action: "Created an Account",
+});
+ReactGA.exception({
+  description: "An error ocurred",
+  fatal: true,
+});
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <PersistGate persistor={persistor}> */}
-      <App />
-      {/* </PersistGate> */}
+      <PersistGate persistor={persistor}>
+        <App />
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

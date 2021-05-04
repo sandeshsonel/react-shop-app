@@ -1,6 +1,6 @@
 import SavedItemActionType from "../types/savedItem.types";
 import WishlistActionTypes from "../types/wishlist.types";
-
+import { addItemToWishlist } from "../utils/wishlist.utils";
 const initial_state = {
   items: [],
   isLoading: true,
@@ -67,7 +67,7 @@ const savedItemsReducers = (state = initial_state, action) => {
     case SavedItemActionType.ADD_SAVE_ITEM:
       return {
         ...state,
-        items: [...state.items, action.payload],
+        items: addItemToWishlist(state.items, action.payload),
       };
     case SavedItemActionType.REMOVE_SAVE_ITEM:
       return {

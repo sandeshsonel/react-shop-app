@@ -48,8 +48,8 @@ export const removeCartItemFailed = (errorMsg) => ({
 });
 
 //----------UPDATE-----------//
-export const updateCartItemQuantity = ({ productId, quantity }) => ({
-  type: CartActionType.UPDATE_CART_ITEM_QUANTITY,
+export const setUpdateCartItemQuantity = ({ productId, quantity }) => ({
+  type: CartActionType.SET_UPDATE_CART_ITEM_QUANTITY,
   payload: productId,
 });
 
@@ -63,6 +63,7 @@ export const updateCartItemQuantityFailed = (errorMsg) => ({
   payload: errorMsg,
 });
 
+//----------OTHER-----------//
 export const addItemToCart = (item) => ({
   type: CartActionType.ADD_ITEM_TO_CART,
   payload: item,
@@ -71,6 +72,11 @@ export const addItemToCart = (item) => ({
 export const removeItemToCart = ({ itemId, size }) => ({
   type: CartActionType.REMOVE_ITEM_TO_CART,
   payload: { itemId, size },
+});
+
+export const updateCartItemQuantity = ({ productId, quantity }) => ({
+  type: CartActionType.UPDATE_CART_ITEM_QUANTITY,
+  payload: { productId, quantity },
 });
 
 export const clearAllItemToCart = () => ({

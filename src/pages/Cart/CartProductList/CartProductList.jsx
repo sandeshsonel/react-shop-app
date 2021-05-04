@@ -77,7 +77,7 @@ const CartProductList = (props) => {
   };
 
   const handleSaveForLator = (cartItem) => {
-    let alreadySaveItemInWishlist = savedItems.some((saveItem) => cartItem._id === saveItem._id);
+    let alreadySaveItemInWishlist = savedItems.some((saveItem) => cartItem._id === saveItem._id && cartItem.selectSize === saveItem.selectSize);
     if (alreadySaveItemInWishlist) {
       setSnackbar({ ...snackbar, open: true, message: "Item Already exists in wishlist", warning: "error" });
       setTimeout(() => {
@@ -188,7 +188,12 @@ const CartProductList = (props) => {
                 </div>
                 <div className="w-full">
                   <span className="font-semiBold">Size:</span>
-                  <select onChange={(e) => handleUpdateItemQuantity(cartItem._id, e.target.value)} className="w-full mt-1 bg-white border" name="" id="">
+                  <select
+                    //  onChange={(e) => handleUpdateItemQuantity(cartItem._id, e.target.value)}
+                    className="w-full mt-1 bg-white border"
+                    name=""
+                    id=""
+                  >
                     {sizesOptions(cartItem.sizes, cartItem.selectSize)}
                   </select>
                 </div>
@@ -277,7 +282,9 @@ const CartProductList = (props) => {
               <li
                 onClick={() => {
                   setState({ bottom: false });
-                  isLogin ? setRemoveCartItemStart(moreInfoDetail.productId) : removeItemToCart(moreInfoDetail._id);
+                  isLogin
+                    ? setRemoveCartItemStart(moreInfoDetail.productId)
+                    : removeItemToCart({ itemId: moreInfoDetail._id, size: moreInfoDetail.selectSize });
                 }}
                 className="py-4 text-red-500 cursor-pointer"
               >
@@ -309,7 +316,7 @@ const mapDispatchToProps = (dispatch) => ({
   removeSavedItem: (id) => dispatch(removeSavedItem(id)),
   removeItemToCart: (details) => dispatch(removeItemToCart(details)),
   addSavedItem: (item) => dispatch(addSavedItem(item)),
-  updateCartItemQuantity: (details) => updateCartItemQuantity(details),
+  updateCartItemQuantity,
   // online
   setAddCartItemStart: (item) => dispatch(setAddCartItemStart(item)),
   setRemoveCartItemStart: (itemId) => dispatch(setRemoveCartItemStart(itemId)),

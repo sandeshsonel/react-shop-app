@@ -68,9 +68,9 @@ export const addItemToCart = (item) => ({
   payload: item,
 });
 
-export const removeItemToCart = (itemId) => ({
+export const removeItemToCart = ({ itemId, size }) => ({
   type: CartActionType.REMOVE_ITEM_TO_CART,
-  payload: itemId,
+  payload: { itemId, size },
 });
 
 export const clearAllItemToCart = () => ({

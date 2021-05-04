@@ -52,7 +52,6 @@ const CartProductList = (props) => {
   };
 
   const handleMoreInfoButton = (cartItem) => {
-    console.log(cartItem);
     setState({ bottom: true });
     setMoreInfoDetail(cartItem);
   };
@@ -71,13 +70,27 @@ const CartProductList = (props) => {
         setRemoveCartItemStart(moreInfoDetail.productId);
       } else {
         addSavedItem(moreInfoDetail);
-        removeItemToCart(moreInfoDetail._id);
+        removeItemToCart({ itemId: moreInfoDetail._id, size: moreInfoDetail.selectSize });
       }
-      // setSnackbar({ ...snackbar, open: true, message: "Item add in wishlist", warning: "error" });
-      // setTimeout(() => {
-      //   setSnackbar({ ...snackbar, open: false, message: "", warning: "" });
-      // }, 2000);
       setState({ bottom: false });
+    }
+  };
+
+  const handleSaveForLator = (cartItem) => {
+    let alreadySaveItemInWishlist = savedItems.some((saveItem) => cartItem._id === saveItem._id);
+    if (alreadySaveItemInWishlist) {
+      setSnackbar({ ...snackbar, open: true, message: "Item Already exists in wishlist", warning: "error" });
+      setTimeout(() => {
+        setSnackbar({ ...snackbar, open: false, message: "", warning: "" });
+      }, 2000);
+    } else {
+      if (isLogin) {
+        addSavedItem(cartItem);
+        setRemoveCartItemStart(moreInfoDetail.productId);
+      } else {
+        addSavedItem(cartItem);
+        removeItemToCart({ itemId: cartItem._id, size: cartItem.selectSize });
+      }
     }
   };
 
@@ -89,14 +102,25 @@ const CartProductList = (props) => {
     console.log(quantity);
     let array = [];
 
-    for (let i = 1; i <= 10; i++) {
-      // if (i !== quantity) {
+    for (let i = 1; i <= 5; i++) {
       array.push(
         <option selected={i === quantity} value={i}>
           {i}
         </option>
       );
-      // }
+    }
+    return array;
+  };
+
+  const sizesOptions = (sizes, selectSize) => {
+    let array = [];
+
+    for (let i = 0; i < sizes.length; i++) {
+      array.push(
+        <option selected={sizes[i] === selectSize} value={sizes[i]}>
+          {sizes[i]}
+        </option>
+      );
     }
 
     return array;
@@ -104,7 +128,7 @@ const CartProductList = (props) => {
 
   // Math.floor(cartItem.price - (cartItem.price * cartItem.priceDiscount) / 100)
   const subTotal = cartItems
-    .map((cartItem) => [Math.floor(cartItem.price - (cartItem.price * cartItem.priceDiscount) / 100)])
+    .map((cartItem) => [Math.floor((cartItem.price - (cartItem.price * cartItem.priceDiscount) / 100) * cartItem.quantity)])
     .reduce((r, a) => r.concat(a), [])
     .reduce((acc, cur) => acc + cur, 0);
   // .map((value, idx) => value.reduce((sum, curr) => sum + curr[idx], 0));
@@ -115,7 +139,7 @@ const CartProductList = (props) => {
     <div className="mt-16 pb-10">
       <div className="space-y-3 xl:max-h-80 overflow-y-auto">
         {cartItems.map((cartItem) => (
-          <div className="flex items-start space-x-3 border-b">
+          <div className="flex items-start space-x-3 border-b pb-4">
             <div>
               <img
                 className="w-36"
@@ -129,9 +153,11 @@ const CartProductList = (props) => {
                   <h1 className="font-semiBold xl:text-lg">{cartItem.productName}</h1>
                   <p className="text-sm xl:text-base text-gray-500">{cartItem.description}</p>
                 </div>
-                <div className="mt-1">
+                <div className="mt-1 mr-3">
                   <button
-                    onClick={() => (isLogin ? setRemoveCartItemStart(cartItem.productId) : removeItemToCart(cartItem._id))}
+                    onClick={() =>
+                      isLogin ? setRemoveCartItemStart(cartItem.productId) : removeItemToCart({ itemId: cartItem._id, size: cartItem.selectSize })
+                    }
                     className="cursor-pointer hidden xl:block lg:block md:block sm:block px-1 py-1 bg-gray-100 rounded-full focus:outline-none outline-none focus:ring-2 focus:ring-black"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6" viewBox="0 0 512 512">
@@ -161,29 +187,41 @@ const CartProductList = (props) => {
                   <h1 className="mt-1">Rs. {Math.floor(cartItem.price - (cartItem.price * cartItem.priceDiscount) / 100)}</h1>
                 </div>
                 <div className="w-full">
+                  <span className="font-semiBold">Size:</span>
+                  <select onChange={(e) => handleUpdateItemQuantity(cartItem._id, e.target.value)} className="w-full mt-1 bg-white border" name="" id="">
+                    {sizesOptions(cartItem.sizes, cartItem.selectSize)}
+                  </select>
+                </div>
+                <div className="w-full">
                   <span className="font-semiBold">Quantity:</span>
-                  <select
-                    onChange={
-                      (e) => handleUpdateItemQuantity(cartItem._id, e.target.value)
-                      // updateCartItemQuantity({ productId: cartItem._id, quantity: e.target.value })
-                      // console.log({ productId: cartItem._id, quantity: e.target.value })
-                      // setQuantity(e.target.value)
-                    }
-                    className="w-full mt-1 bg-white border"
-                    name=""
-                    id=""
-                  >
-                    {/* <option selected disabled={!cartItem.quantity} value="">
-                      {!cartItem.quantity ? "Quantity" : cartItem.quantity}
-                    </option> */}
+                  <select onChange={(e) => handleUpdateItemQuantity(cartItem._id, e.target.value)} className="w-full mt-1 bg-white border" name="" id="">
                     {quantityOption(cartItem.quantity)}
                   </select>
                 </div>
                 <div className="w-full">
                   <span className="font-semiBold">Total:</span>
-                  <h1 className="mt-1">Rs. {Math.floor(cartItem.price - (cartItem.price * cartItem.priceDiscount) / 100) * cartItem.quantity}</h1>
+                  <h1 className="mt-1">Rs. {Math.floor((cartItem.price - (cartItem.price * cartItem.priceDiscount) / 100) * cartItem.quantity)}</h1>
                 </div>
               </div>
+
+              <button
+                onClick={() => handleSaveForLator(cartItem)}
+                className="hidden xl:flex lg:flex md:flex sm:flex items-center space-x-1 border rounded-md hover:border-gray-600 mt-4 px-1 py-1"
+              >
+                <div>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-4" viewBox="0 0 512 512">
+                    <path
+                      d="M352.92 80C288 80 256 144 256 144s-32-64-96.92-64c-52.76 0-94.54 44.14-95.08 96.81-1.1 109.33 86.73 187.08 183 252.42a16 16 0 0018 0c96.26-65.34 184.09-143.09 183-252.42-.54-52.67-42.32-96.81-95.08-96.81z"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="32"
+                    />
+                  </svg>
+                </div>
+                <span className="text-sm">Save for later</span>
+              </button>
             </div>
           </div>
         ))}
@@ -269,7 +307,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   addItemToCart: (item) => dispatch(addItemToCart(item)),
   removeSavedItem: (id) => dispatch(removeSavedItem(id)),
-  removeItemToCart: (itemId) => dispatch(removeItemToCart(itemId)),
+  removeItemToCart: (details) => dispatch(removeItemToCart(details)),
   addSavedItem: (item) => dispatch(addSavedItem(item)),
   updateCartItemQuantity: (details) => updateCartItemQuantity(details),
   // online

@@ -1,10 +1,12 @@
 export const addItemToCart = (cartItems, cartItemToAdd) => {
   console.log({ cartItems }, { cartItemToAdd });
-  const exitingCartItem = cartItems.find((cartItem) => cartItem._id === cartItemToAdd._id);
-  // const exitingCartItem = cartItems.find((cartItem) => cartItem._id === cartItemToAdd._id && cartItem.selectSize === cartItemToAdd.selectSize);
+  // const exitingCartItem = cartItems.find((cartItem) => cartItem._id === cartItemToAdd._id);
+  const exitingCartItem = cartItems.some((cartItem) => cartItem._id === cartItemToAdd._id && cartItem.selectSize === cartItemToAdd.selectSize);
 
   if (exitingCartItem) {
-    return cartItems.map((cartItem) => (cartItem._id === cartItemToAdd._id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem));
+    return cartItems.map((cartItem) =>
+      cartItem._id === cartItemToAdd._id && cartItem.selectSize === cartItemToAdd.selectSize ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
+    );
   }
 
   return [...cartItems, { ...cartItemToAdd, quantity: 1 }];

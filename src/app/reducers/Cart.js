@@ -8,7 +8,6 @@ const initial_state = {
 };
 
 const cartReducer = (state = initial_state, action) => {
-  console.log("xolo-action", action.type);
   switch (action.type) {
     //----------GET-----------//
 
@@ -78,7 +77,7 @@ const cartReducer = (state = initial_state, action) => {
     case CartActionType.REMOVE_ITEM_TO_CART:
       return {
         ...state,
-        cart: state.cart.filter((cart) => action.payload !== cart._id),
+        cart: state.cart.filter((cart) => action.payload.item !== cart._id && action.payload.size !== cart.selectSize),
       };
     //----------UPDATE-----------//
     case CartActionType.UPDATE_CART_ITEM_QUANTITY:

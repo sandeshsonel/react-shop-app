@@ -53,7 +53,8 @@ const ProductDetails = (props) => {
 
   const handleAddItemToBag = (product) => {
     console.log("xoko", product);
-    const alreadyItemInCart = cart.find((c) => product._id === c._id);
+    console.log("xoko", selectSize);
+    const alreadyItemInCart = cart.some((c) => product._id === c._id && selectSize === c.selectSize && c.quantity >= 5);
     console.log("xoko", alreadyItemInCart);
 
     if (selectSize === null) {
@@ -70,24 +71,24 @@ const ProductDetails = (props) => {
       if (isLogin) {
         setAddCartItemStart({ ...product, selectSize, quantity: 1 });
       } else {
-        if (alreadyItemInCart?.quantity > 5) {
-          setSnackbar({ ...snackbar, open: true, message: "Already item in cart", warning: "error" });
+        if (alreadyItemInCart) {
+          setSnackbar({
+            ...snackbar,
+            open: true,
+            message: `Sorry we can not another ${product.productName} to your bag as you've already added the maximum amount`,
+            warning: "error",
+          });
           setTimeout(() => {
             setSnackbar({ ...snackbar, open: false, message: "", warning: "" });
-          }, 2000);
+          }, 4000);
         } else {
           addItemToCart({ ...product, selectSize: selectSize });
-          setSnackbar({ ...snackbar, open: true, message: "Already item in cart", warning: "error" });
+          setSnackbar({ ...snackbar, open: true, message: "Add Item To Cart", warning: "success" });
           setTimeout(() => {
             setSnackbar({ ...snackbar, open: false, message: "", warning: "" });
           }, 2000);
         }
       }
-      setSnackbar({ ...snackbar, open: true, message: "Add Item To Cart", warning: "success" });
-      setTimeout(() => {
-        setSnackbar({ ...snackbar, open: false, message: "", warning: "" });
-      }, 2000);
-      props.history.push("/cart");
     }
   };
 

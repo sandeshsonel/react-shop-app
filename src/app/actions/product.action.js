@@ -33,3 +33,9 @@ export const setGetProductFailed = (errorMsg) => ({
   type: ProductActionTypes.SET_GET_PRODUCT_DETAILS_FAILED,
   payload: errorMsg,
 });
+
+//------------
+export const setProductSeachQuery = (query) => ({
+  type: ProductActionTypes.SET_PRODUCT_SEARCH_QUERY,
+  payload: query,
+});

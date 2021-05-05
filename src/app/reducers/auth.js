@@ -6,6 +6,7 @@ const initial_state = {
   token: "",
   expireDate: "",
   isLoading: false,
+  errorMsg: null,
 };
 
 const authReducer = (state = initial_state, action) => {
@@ -40,6 +41,11 @@ const authReducer = (state = initial_state, action) => {
       return {
         ...state,
         isLoading: false,
+      };
+    case AuthActionTypes.SIGN_UP_USER_FAILED:
+      return {
+        ...state,
+        errorMsg: action.payload,
       };
     case "SIGN_OUT_USER":
       return {

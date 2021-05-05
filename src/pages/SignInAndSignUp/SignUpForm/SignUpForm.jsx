@@ -1,5 +1,7 @@
 import React, { useState, useRef } from "react";
 import { connect } from "react-redux";
+import Snackbar from "@material-ui/core/Snackbar";
+import Alert from "@material-ui/lab/Alert";
 
 import { signUpUser } from "../../../app/actions/auth.action";
 
@@ -19,6 +21,13 @@ const SignUpForm = ({ signUpUser }) => {
     mostlyInterestedIn: "",
   });
   const [hidePassword, setHidePassword] = useState(true);
+  const [snackbar, setSnackbar] = React.useState({
+    open: false,
+    vertical: "top",
+    horizontal: "center",
+    message: "",
+    warning: "success",
+  });
 
   const handleChange = (e) => {
     setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
@@ -59,23 +68,34 @@ const SignUpForm = ({ signUpUser }) => {
     e.preventDefault();
 
     let dateOfBirth = new Date(userDetails.dateOfBirth.year, userDetails.dateOfBirth.month, userDetails.dateOfBirth.date, 0, 0, 0, 0);
+    if (userDetails.password !== userDetails.confirmPassword) {
+      setSnackbar({
+        ...snackbar,
+        open: true,
+        message: "Confirm password incorrect",
+        warning: "error",
+      });
+      setTimeout(() => {
+        setSnackbar({ ...snackbar, open: false, message: "", warning: "" });
+      }, 4000);
+    } else {
+      const data = {
+        email: userDetails.emailAddress,
+        firstName: userDetails.firstName,
+        lastName: userDetails.lastName,
+        password: userDetails.password,
+        passwordConfirm: userDetails.password,
+        dateOfBirth: dateOfBirth,
+        mostlyInterested: userDetails.mostlyInterestedIn,
+      };
 
-    const data = {
-      email: userDetails.emailAddress,
-      firstName: userDetails.firstName,
-      lastName: userDetails.lastName,
-      password: userDetails.password,
-      passwordConfirm: userDetails.password,
-      dateOfBirth: dateOfBirth,
-      mostlyInterested: userDetails.mostlyInterestedIn,
-    };
-
-    signUpUser(data);
+      signUpUser(data);
+    }
   };
 
   console.log("xoxo", userDetails);
   return (
-    <div className="mt-2 px-2 xl:px-0 lg:px-0 h-screen">
+    <div className="mt-2 px-2 xl:px-0 lg:px-0 h-auto">
       <form onSubmit={onSubmit}>
         <div className="space-y-3">
           <div>
@@ -106,7 +126,14 @@ const SignUpForm = ({ signUpUser }) => {
             <label className="uppercase font-semiBold text-gray-400 text-sm">Password:</label>
             <div className="flex items-center justify-between w-full border border-black py-2 px-2 mt-1">
               <div className="w-full">
-                <input required name="password" onChange={handleChange} type={hidePassword ? "password" : "text"} className=" w-full outline-none" />
+                <input
+                  maxLength={8}
+                  required
+                  name="password"
+                  onChange={handleChange}
+                  type={hidePassword ? "password" : "text"}
+                  className=" w-full outline-none"
+                />
               </div>
               <div>
                 {hidePassword ? (
@@ -133,11 +160,18 @@ const SignUpForm = ({ signUpUser }) => {
                 )}
               </div>
             </div>
-            <span className="text-xs text-gray-500">Must be 8 or more characters</span>
+            {/* <span className="text-xs text-gray-500">Must be 8 or more characters</span> */}
           </div>
           <div>
             <label className="uppercase font-semiBold text-gray-400  text-sm">Confirm Password:</label>
-            <input required name="confirmPassword" onChange={handleChange} type="password" className="border border-black w-full py-2 px-2 mt-1 outline-none" />
+            <input
+              maxLength={8}
+              required
+              name="confirmPassword"
+              onChange={handleChange}
+              type="password"
+              className="border border-black w-full py-2 px-2 mt-1 outline-none"
+            />
           </div>
           <div>
             <label className="uppercase font-semiBold text-gray-400  text-sm">Date of Birth:</label>
@@ -185,7 +219,7 @@ const SignUpForm = ({ signUpUser }) => {
                 </select>
               </div>
             </div>
-            <span className="text-xs text-gray-500">You need to be 16 or over to use SHOPS</span>
+            {/* <span className="text-xs text-gray-500">You need to be 16 or over to use SHOPS</span> */}
           </div>
           <div>
             <label className="uppercase font-semiBold text-gray-400  text-sm">MOSTLY INTERESTED IN:</label>
@@ -214,18 +248,6 @@ const SignUpForm = ({ signUpUser }) => {
               </div>
             </div>
           </div>
-          {/* <div className="mt-4">
-              <p className="text-xs">
-                By creating your account, you agree to our &nbsp;
-                <a className="underline" href="">
-                  Terms and Conditions
-                </a>
-                &nbsp; & &nbsp;
-                <a className="underline" href="">
-                  Privacy Policy
-                </a>
-              </p>
-            </div> */}
         </div>
         <div className="mt-8 bottom-0 py-3 sticky w-full">
           <button type="submit" className="w-full uppercase font-semiBold bg-black shadow-md text-white py-3 ">
@@ -233,6 +255,16 @@ const SignUpForm = ({ signUpUser }) => {
           </button>
         </div>
       </form>
+
+      <Snackbar
+        autoHideDuration={2000}
+        anchorOrigin={{ vertical: snackbar.vertical, horizontal: snackbar.horizontal }}
+        open={snackbar.open}
+        // onClose={handleClose}
+        key={snackbar.vertical + snackbar.horizontal}
+      >
+        <Alert severity={snackbar.warning}>{snackbar.message}</Alert>
+      </Snackbar>
     </div>
   );
 };

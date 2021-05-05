@@ -44,8 +44,6 @@ class App extends Component {
     const { token, expireDate, setLogin, getUserDetails, fetchCompanyDetails } = this.props;
     if (token && new Date(expireDate) > new Date()) {
       setLogin(true);
-      // getUserDetails();
-      // fetchCompanyDetails();
     } else {
       setLogin(false);
     }
@@ -53,9 +51,6 @@ class App extends Component {
 
   componentDidMount() {
     this.checkAutoLogin();
-    // this.setState({
-    //   isLoading: false,
-    // });
   }
   componentDidUpdate(prevProps) {
     if (prevProps.token !== this.props.token || new Date(this.props.expireDate) > new Date()) {

@@ -64,14 +64,14 @@ const ProductList = ({ isLogin, products, addSavedItem, setAddCartItemStart, sav
     // }
   }
 
-  useEffect(() => {}, [savedItems]);
-
-  console.log("www", faveItemArray);
   return (
     <div className="mt-2 pb-24">
       <div className="grid grid-cols-2 gap-3 xl:grid xl:grid-cols-3 xl:gap-4 lg:grid lg:grid-cols-3 md:grid md:grid-cols-3 sm:grid sm:grid-cols-3 ">
         {products.map((product) => (
-          <div className="cursor-pointer hover:opacity-75 w-auto h-auto">
+          <div
+            href={`/productDetails/${product.gender}/${product.category}/${product.productName.replace(/\s/g, "")}/${product._id}`}
+            className="cursor-pointer hover:opacity-75 w-auto h-auto"
+          >
             <div className="relative">
               <div>
                 <img

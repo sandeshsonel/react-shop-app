@@ -4,8 +4,16 @@ import SignUpForm from "./SignUpForm/SignUpForm";
 import SignInForm from "./SignInForm/SignInForm";
 import Loader from "src/components/Loader/Loader";
 
-const SignInAndSignUpPage = ({ isLogin, signUpUser, handleClose, authLoading }) => {
+const SignInAndSignUpPage = ({ isLogin, signUpUser, handleClose, authLoading, ...ownProps }) => {
   const [value, setValue] = useState(1);
+
+  useEffect(() => {
+    if (isLogin) {
+      ownProps.history.push("/profile");
+    }
+  }, [isLogin]);
+
+  console.log("123", ownProps);
 
   return (
     <div className="h-screen pb-10">

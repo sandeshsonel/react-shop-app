@@ -2,7 +2,7 @@ import storage from "redux-persist/lib/storage";
 import AuthActionTypes from "../app/types/auth.types";
 const { all, call, fork, put, takeEvery } = require("redux-saga/effects");
 const { signUpUser, signInUser } = require("../utils/apiFetch");
-const { setUserData, setLogin, setUserProfileData, userSignOutSuccess, signInUserSuccess, signInUserFailed } = require("../app/actions");
+const { setUserData, setLogin, setUserProfileData, userSignOutSuccess, signInUserSuccess, signInUserFailed, signUpUserFailed } = require("../app/actions");
 
 const signUpUserRequest = async (data) => {
   console.log(data);
@@ -56,6 +56,7 @@ function* signUpUserFun({ payload }) {
       yield put(setLogin(true));
       yield put(setUserProfileData(signUpUser.data));
     } else if (Number(signUpUser.status) === 0) {
+      signUpUserFailed(signUpUser.message);
       alert(signUpUser.message);
     } else {
       alert("error creating account");

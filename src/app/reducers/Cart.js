@@ -34,6 +34,7 @@ const cartReducer = (state = initial_state, action) => {
       return {
         ...state,
         isLoading: true,
+        errorMsg: null,
       };
     case CartActionType.ADD_ITEM_TO_CART_SUCCESS:
       return {

@@ -22,11 +22,7 @@ const UserProfilePage = (props) => {
   };
 
   return (
-    <div className="mt-16">
-      {/* <div className="text-centers">
-        <span className="font-semiBold text-xl uppercase text-center">My Account</span>
-      </div> */}
-
+    <div className="mt-16 fixed h-screen w-full max-w-2xl">
       <div className="px-3 xl:px-0 lg:px-0 md:px-0 sm:px-0">
         <div>
           <span className="text-lg">Hi,</span>

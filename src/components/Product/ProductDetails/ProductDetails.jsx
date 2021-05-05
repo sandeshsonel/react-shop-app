@@ -28,7 +28,7 @@ const settings = {
 
 const ProductDetails = (props) => {
   console.log(props);
-  const { match, addItemToCart, addSavedItem, cart, savedItems, isLogin, removeItemToCart, setAddCartItemStart } = props;
+  const { match, addItemToCart, addSavedItem, cart, savedItems, isLogin, removeItemToCart, setAddCartItemStart, isLoading } = props;
   const [product, setProducts] = useState({});
   const [selectSize, setSelectSize] = useState(null);
   const [snackbar, setSnackbar] = React.useState({
@@ -140,7 +140,11 @@ const ProductDetails = (props) => {
 
   return (
     <div className="pb-28">
-      <button onClick={() => setGetProductDetailsStart(match.params.id)}>Click</button>
+      {isLoading && (
+        <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
+          <Loader />
+        </div>
+      )}
       <div className="mt-6">
         <Slider {...settings}>
           <div>
@@ -234,6 +238,7 @@ const ProductDetails = (props) => {
 
 const mapStateToProps = (state) => ({
   cart: state.cart.cart,
+  isLoading: state.cart.isLoading,
   savedItems: state.wishlist.items,
   isLogin: state.auth.isLogin,
 });

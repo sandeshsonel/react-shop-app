@@ -15,6 +15,11 @@ export const signUpUser = (data) => ({
   payload: data,
 });
 
+export const signUpUserFailed = (errorMsg) => ({
+  type: AuthActionTypes.SIGN_UP_USER_FAILED,
+  payload: errorMsg,
+});
+
 // signin
 export const signInUser = (data) => ({
   type: AuthActionTypes.SIGN_IN_USER,

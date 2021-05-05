@@ -3,7 +3,7 @@ import { addItemToCart, updateCartItemQuantity } from "../utils/cart.utils";
 
 const initial_state = {
   cart: [],
-  isLoading: true,
+  isLoading: false,
   errorMsg: null,
 };
 

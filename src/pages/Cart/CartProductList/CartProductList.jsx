@@ -156,7 +156,9 @@ const CartProductList = (props) => {
                 <div className="mt-1 mr-3">
                   <button
                     onClick={() =>
-                      isLogin ? setRemoveCartItemStart(cartItem.productId) : removeItemToCart({ itemId: cartItem._id, size: cartItem.selectSize })
+                      isLogin
+                        ? setRemoveCartItemStart({ itemId: cartItem.productId, size: cartItem.selectSize })
+                        : removeItemToCart({ itemId: cartItem._id, size: cartItem.selectSize })
                     }
                     className="cursor-pointer hidden xl:block lg:block md:block sm:block px-1 py-1 bg-gray-100 rounded-full focus:outline-none outline-none focus:ring-2 focus:ring-black"
                   >
@@ -283,7 +285,7 @@ const CartProductList = (props) => {
                 onClick={() => {
                   setState({ bottom: false });
                   isLogin
-                    ? setRemoveCartItemStart(moreInfoDetail.productId)
+                    ? setRemoveCartItemStart({ itemId: moreInfoDetail.productId, size: moreInfoDetail.selectSize })
                     : removeItemToCart({ itemId: moreInfoDetail._id, size: moreInfoDetail.selectSize });
                 }}
                 className="py-4 text-red-500 cursor-pointer"
@@ -319,7 +321,7 @@ const mapDispatchToProps = (dispatch) => ({
   updateCartItemQuantity,
   // online
   setAddCartItemStart: (item) => dispatch(setAddCartItemStart(item)),
-  setRemoveCartItemStart: (itemId) => dispatch(setRemoveCartItemStart(itemId)),
+  setRemoveCartItemStart: (details) => dispatch(setRemoveCartItemStart(details)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartProductList);

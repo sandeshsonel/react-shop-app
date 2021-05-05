@@ -32,9 +32,9 @@ export const addCartItemFailed = (errorMsg) => ({
 });
 
 //----------REMOVE-----------//
-export const setRemoveCartItemStart = (itemId) => ({
+export const setRemoveCartItemStart = ({ itemId, size }) => ({
   type: CartActionType.REMOVE_ITEM_TO_CART_START,
-  payload: itemId,
+  payload: { itemId, size },
 });
 
 export const removeCartItemSuccess = (successMsg) => ({

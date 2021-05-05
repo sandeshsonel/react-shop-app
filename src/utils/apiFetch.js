@@ -165,7 +165,9 @@ export const deleteCartItemApi = async (data) => {
     },
   };
   try {
-    let axiosResult = await axios.delete(deleteCartItemUrl(data), config);
+    let axiosResult = await axios.delete(deleteCartItemUrl(data.itemId, data.size), config);
+    // let axiosResult = await axios.delete(deleteCartItemUrl, config);
+
     return axiosResult && axiosResult.data;
   } catch (error) {
     console.log("xoxo-error", error);

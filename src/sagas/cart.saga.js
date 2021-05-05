@@ -61,10 +61,10 @@ function* addCartItem2({ payload }) {
   } catch (error) {}
 }
 
-function* removeCartItem2({ payload }) {
-  console.log("xolo-payload", payload);
+function* removeCartItem2({ payload: { itemId, size } }) {
+  console.log("xolo-payload", itemId, size);
   try {
-    const cartItems = yield call(removeCartItemRequest, payload);
+    const cartItems = yield call(removeCartItemRequest, { itemId, size });
     if (Number(cartItems.status) === 1) {
       yield put(removeCartItemSuccess(cartItems.data));
     } else if (Number(cartItems.status === 0)) {

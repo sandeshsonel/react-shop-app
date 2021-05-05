@@ -130,6 +130,8 @@ const ProductDetails = (props) => {
     return array;
   };
 
+  console.log("ppp", product);
+
   if (Object.keys(product).length === 0) {
     return (
       <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
@@ -141,7 +143,7 @@ const ProductDetails = (props) => {
   return (
     <div className="pb-28">
       {isLoading && (
-        <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
+        <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)", zIndex: "9999" }}>
           <Loader />
         </div>
       )}
@@ -164,7 +166,7 @@ const ProductDetails = (props) => {
         </Slider>
       </div>
 
-      <div className="px-3 xl:px-0 mt-3 space-y-3">
+      <div className="px-3 xl:px-0 lg:px-0 md:px-0 mt-3 space-y-3">
         <div className="">
           <div className="leading-7">
             <h1 className="font-bold">{product.productName}</h1>
@@ -200,7 +202,7 @@ const ProductDetails = (props) => {
           ))}
         </div>
       </div>
-      <footer className="px-3 py-2 bg-white xl:px-0 lg:px-0 md:px-0 sm:px-0 bottom-0 sticky w-full mt-10">
+      <footer className="px-3 py-2 bg-white xl:px-0 lg:px-0 md:px-0 sm:px-3 bottom-0 sticky w-full mt-10">
         <div className="flex items-center space-x-3">
           <div className="w-full">
             <button

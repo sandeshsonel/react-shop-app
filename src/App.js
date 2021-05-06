@@ -41,7 +41,13 @@ class App extends Component {
   }
 
   checkAutoLogin = () => {
-    const { token, expireDate, setLogin, getUserDetails, fetchCompanyDetails } = this.props;
+    const {
+      token,
+      expireDate,
+      setLogin,
+      getUserDetails,
+      fetchCompanyDetails,
+    } = this.props;
     if (token && new Date(expireDate) > new Date()) {
       setLogin(true);
     } else {
@@ -53,12 +59,16 @@ class App extends Component {
     this.checkAutoLogin();
   }
   componentDidUpdate(prevProps) {
-    if (prevProps.token !== this.props.token || new Date(this.props.expireDate) > new Date()) {
+    if (
+      prevProps.token !== this.props.token ||
+      new Date(this.props.expireDate) > new Date()
+    ) {
       this.checkAutoLogin();
     }
   }
 
   render() {
+    console.log("xopo", this.props);
     return (
       <div>
         <div className="font-inter max-w-2xl m-auto">
@@ -74,7 +84,10 @@ class App extends Component {
               <Route path="/profile" component={UserProfilePage} />
 
               <Route path="/search" component={SearchPage} />
-              <Route path="/productDetails/:type/:category/:productName/:id" component={ProductDetails} />
+              <Route
+                path="/productDetails/:type/:category/:productName/:id"
+                component={ProductDetails}
+              />
               <Route path="/loginSign" component={SignInAndSignUpPage} />
               <Route path="/checkout" component={CheckoutPage} />
               <Route path="/dashboard" component={Dashboard} />

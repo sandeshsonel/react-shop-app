@@ -3,23 +3,32 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: 'Futura PT';
-    src: local('FuturaPTLight'), url(./assets/fonts/FuturaPTLight.otf) format('otf');
-  }
+   font-family: "Futura PT";
+   src: local("FuturaPTLight"),
+      url(./assets/fonts/FuturaPTLight.otf) format("otf");
+}
 
-  @font-face {
-    font-family: 'Futura PT';
-    src: local('FuturaPTBook'), url(./assets/fonts/FuturaPTBook.otf) format('otf');
-  }
-  
-  @font-face {
-    font-family: 'Futura PT';
-    src: local('FuturaPTMedium'), url(./assets/fonts/FuturaPTMedium.otf) format('otf');
-  }
-  
-  @font-face {
-    font-family: 'Futura PT';
-    src: local('FuturaPTBold'), url(./assets/fonts/FuturaPTBold.otf) format('otf');
-  }
-  
- 
+@font-face {
+   font-family: "Futura PT";
+   src: local("FuturaPTBook"),
+      url(./assets/fonts/FuturaPTBook.otf) format("otf");
+}
+
+@font-face {
+   font-family: "Futura PT";
+   src: local("FuturaPTMedium"),
+      url(./assets/fonts/FuturaPTMedium.otf) format("otf");
+}
+
+@font-face {
+   font-family: "Futura PT";
+   src: local("FuturaPTBold"),
+      url(./assets/fonts/FuturaPTBold.otf) format("otf");
+}
+
+.center {
+   position: fixed;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+}

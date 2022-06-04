@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Lottie from "react-lottie";
+// import Lottie from "react-lottie";
 import error404 from "../../assets/lottie/error404.json";
 import errorLogo from "../../assets/images/errorEmoji.svg";
 
@@ -19,7 +19,7 @@ const NotFoundPage = () => {
       <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} className="">
         <div className="flex flex-col flex-nowrap justify-between text-center max-w-xs">
           <div>
-            <Lottie options={defaultOptions} height={200} width={200} />
+            {/*<Lottie options={defaultOptions} height={200} width={200} />*/}
             {/* <img className="w-24 m-auto" src={errorLogo} alt="" /> */}
           </div>
           <div className="">

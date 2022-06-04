@@ -13,7 +13,7 @@ import productDummy from "../../../assets/data/products";
 
 // redux
 import { addItemToCart, addSavedItem, removeItemToCart, setAddCartItemStart, setGetProductDetailsStart } from "../../../app/actions";
-import Loader from "src/components/Loader/Loader";
+import Loader from "components/Loader/Loader";
 
 const settings = {
   dots: true,
